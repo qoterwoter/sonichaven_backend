@@ -1,15 +1,34 @@
 from django.contrib import admin
-
 from .models import Song, Album, Artist
+from django import forms
 
-admin.site.register(Song)
+class SongForm(forms.ModelForm):
+    class Meta:
+        model = Song
+        fields = '__all__'
 
-class AlbumAdmin(admin.ModelAdmin):
-    model = Album
-    list_display = ('title', 'artist')
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Get the current artist ID from the request
+        artist_id = self.initial.get('artist')
+        if artist_id:
+            # Filter the available albums based on the current artist
+            self.fields['album'].queryset = Album.objects.filter(artist_id=artist_id)
 
-    def get_songs(self,obj):
-        return obj.song.title
+
+
+class SongAdmin(admin.ModelAdmin):
+    form = SongForm
+    list_display = ('title','artist','album','duration')
+    list_filter = ['artist','album']
+    search_fields = ('title','artist__name','album__title')
+
+admin.site.register(Song, SongAdmin)
+
+class AlbumAdmin(admin.ModelAdmin): 
+    list_display = ('title', 'artist','release_date')
+    list_filter = ['artist']
+    search_fields = ('title', 'artist__name')
 
 admin.site.register(Album, AlbumAdmin)
 
