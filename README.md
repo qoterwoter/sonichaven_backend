@@ -3,8 +3,6 @@
 
 ## Технологии
 
-Dillinger uses a number of open source projects to work properly:
-
 - React: библиотека JavaScript для создания пользовательских интерфейсов.
 - Redux: библиотека управления состоянием для приложений JavaScript.
 - Django: веб-фреймворк Python высокого уровня.
