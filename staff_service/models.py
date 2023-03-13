@@ -46,7 +46,7 @@ class SoundDesigner(models.Model):
     nickname = models.CharField('Псеводним',max_length=50, unique=True)
     sex = models.CharField('Пол',max_length=1, choices=SEX_CHOICES)
     balance = models.DecimalField('Баланс',max_digits=8, decimal_places=2,default=0)
-    services = models.ManyToManyField(Service)
+    services = models.ManyToManyField(Service, verbose_name='Услуги')
 
     class Meta:
         verbose_name = 'Звукоржессер'
@@ -90,11 +90,22 @@ class ShopCart(models.Model):
     def __str__(self):
         return f'{self.artist.name} - {self.sum}'
 
+    def calculate_cart_sum(self):
+        total_sum = 0
+        for item in self.items.all():
+            total_sum += item.service.cost * item.quantity
+        self.sum = total_sum
+        self.save()
+
 class CartItem(models.Model):
     quantity = models.PositiveIntegerField('Количество',default=1)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     cart = models.ForeignKey(ShopCart, on_delete=models.CASCADE, related_name='items')
-    
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.cart.calculate_cart_sum()
+
     class Meta:
         verbose_name = 'Позиция в корзине'
         verbose_name_plural = 'Позиции в корзине'
