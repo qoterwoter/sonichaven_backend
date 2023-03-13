@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Song, Album, Artist
 from django import forms
+from django.contrib.auth.admin import UserAdmin
 
 class SongForm(forms.ModelForm):
     class Meta:
@@ -32,6 +33,11 @@ class AlbumAdmin(admin.ModelAdmin):
 
 admin.site.register(Album, AlbumAdmin)
 
+
+# class ArtistAdmin(UserAdmin):
+#     list_display = ('username', 'first_name', 'last_name', 'email', 'is_staff', 'name', 'bio')
+
+# admin.site.register(Artist, ArtistAdmin)
 admin.site.register(Artist)
 
 # Register your models here.

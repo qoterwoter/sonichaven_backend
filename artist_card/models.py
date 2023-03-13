@@ -1,23 +1,27 @@
 from django.db import models
 from datetime import timedelta
 from django.db.models import Count
+from django.contrib.auth.models import User
 
 class Artist(models.Model):
-    id = models.BigAutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='artist_profile')
     name = models.CharField('Имя артиста / группы', max_length=100)
     bio = models.TextField(verbose_name='Описание артиста / группы')
 
     class Meta:
-        ordering = ['id']
         verbose_name = 'Исполнитель'
         verbose_name_plural = 'Исполнители'
 
     def __str__(self):
-            return self.name
-    
+        return self.name
+ 
 class Album(models.Model):
     title = models.CharField('Название Альбома', max_length=100)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, verbose_name='Исполнитель')
+    artist = models.ForeignKey(
+        Artist,
+        on_delete=models.CASCADE,
+        verbose_name='Исполнитель',
+    )
     image = models.FileField(upload_to='album_images/',verbose_name='Обложка альбома')
     release_date = models.DateField('Дата выхода')
 
