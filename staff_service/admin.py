@@ -15,8 +15,7 @@ class SoundDesignerAdmin(admin.ModelAdmin):
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('name', 'cost', 'type')
-    list_filter = ('type',)
+    list_display = ('name', 'cost')
 
 class CartItemInline(admin.TabularInline):
     model = CartItem

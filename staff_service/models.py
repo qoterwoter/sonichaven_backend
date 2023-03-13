@@ -12,6 +12,29 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+class Service(models.Model):
+    TYPE_CHOICES = [
+        ('Exclusive', 'Эксклюзив'),
+        ('Leasing', 'Базовый лизинг'),
+        ('Leasing+', 'Коммерческий лизинг'),
+        ('Key', 'Под ключ'),
+        ('Production', 'Продакшн музыка'),
+        ('Mixing', 'Сведение'),
+        ('Mixing+', 'Сведение и Мастеринг'),
+        ('Distribution', 'Дистрибуция'),
+    ]
+    name = models.CharField('Тип',max_length=100)
+    cost = models.DecimalField('Стоимость',max_digits=8, decimal_places=2)
+    type = models.CharField('Тип',max_length=12, choices=TYPE_CHOICES)
+ 
+    class Meta:
+        verbose_name = 'Услуга'
+        verbose_name_plural = 'Услуги'
+
+    def __str__(self):
+        return f"{self.name} ({self.type}) - {self.cost}"
+
+
 class SoundDesigner(models.Model):
     SEX_CHOICES = [
         ('M', 'Мужской'),
@@ -23,6 +46,7 @@ class SoundDesigner(models.Model):
     nickname = models.CharField('Псеводним',max_length=50, unique=True)
     sex = models.CharField('Пол',max_length=1, choices=SEX_CHOICES)
     balance = models.DecimalField('Баланс',max_digits=8, decimal_places=2,default=0)
+    services = models.ManyToManyField(Service)
 
     class Meta:
         verbose_name = 'Звукоржессер'
@@ -53,24 +77,6 @@ class Arrangement(models.Model):
     def __str__(self):
         return f"{self.genre} - {self.author}"
 
-class Service(models.Model):
-    TYPE_CHOICES = [
-        ('C', 'Композиция'),
-        ('P', 'Производство'),
-        ('M', 'Сведение'),
-        ('M+', 'Сведение и Мастеринг'),
-        ('D', 'Дистрибуция'),
-    ]
-    name = models.CharField('Название',max_length=100)
-    cost = models.DecimalField('Стоимость',max_digits=8, decimal_places=2)
-    type = models.CharField('Тип',max_length=2, choices=TYPE_CHOICES)
- 
-    class Meta:
-        verbose_name = 'Услуга'
-        verbose_name_plural = 'Услуги'
-
-    def __str__(self):
-        return f"{self.name} ({self.type}) - {self.cost}"
 
 
 class ShopCart(models.Model):
