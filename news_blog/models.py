@@ -18,7 +18,7 @@ class News(models.Model):
 class NewsArticle(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='articles', verbose_name='Новость')
     content = models.TextField('Контент')
-    image = models.ImageField('Изображение', upload_to='news/', blank=True, null=True)
+    image = models.ImageField('Изображение', upload_to='images/news_article/', blank=True, null=True)
     caption = models.CharField('Описание изображения', max_length=100, blank=True)
 
     class Meta:

@@ -22,7 +22,7 @@ class Album(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Исполнитель',
     )
-    image = models.FileField(upload_to='album_images/',verbose_name='Обложка альбома')
+    image = models.FileField(upload_to='images/album/',verbose_name='Обложка альбома')
     release_date = models.DateField('Дата выхода')
 
     class Meta:
