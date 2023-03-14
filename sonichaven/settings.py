@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'artist_card.apps.ArtistCardConfig',
     'staff_service',
     'sonichaven',
+    'news_blog',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

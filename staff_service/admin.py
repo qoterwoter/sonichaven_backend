@@ -38,10 +38,16 @@ class CartItemInline(admin.TabularInline):
     extra = 1
 @admin.register(ShopCart)
 class ShopCartAdmin(admin.ModelAdmin):
-    list_display= ('id', 'artist', 'sum',)
+    list_display= ('id', 'artist', 'display_sum','display_services')
     inlines = [CartItemInline]
     readonly_fields = ('sum',)
 
+    def display_sum(self, obj):
+        return "$" + str(obj.sum)
+    display_sum.short_description = 'Сумма'
+    def display_services(self, obj):
+        return ', '.join([item.service.name for item in obj.items.all()])
+    display_services.short_description = 'Услуги'   
     def save_model(self, request, obj, form, change):
         # calculate the sum
         obj.sum = sum(item.service.cost * item.quantity for item in obj.items.all())

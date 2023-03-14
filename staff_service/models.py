@@ -99,7 +99,7 @@ class ShopCart(models.Model):
 
 class CartItem(models.Model):
     quantity = models.PositiveIntegerField('Количество',default=1)
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, verbose_name='Услуга')
     cart = models.ForeignKey(ShopCart, on_delete=models.CASCADE, related_name='items')
 
     def save(self, *args, **kwargs):
