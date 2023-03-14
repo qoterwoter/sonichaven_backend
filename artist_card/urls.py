@@ -1,6 +1,6 @@
 from django.urls import path
-from artist_card.views import ArtistTokenObtainPairView
+from .views import ArtistList
 
 urlpatterns = [
-    path('api/token/', ArtistTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('artists/', ArtistList.as_view()),
 ]

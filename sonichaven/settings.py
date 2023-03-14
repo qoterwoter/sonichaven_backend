@@ -30,6 +30,12 @@ ALLOWED_HOSTS = []
 # AUTH_USER_MODEL = 'sonichaven.Artist'
 
 # Application definition
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
 
 INSTALLED_APPS = [
     'artist_card.apps.ArtistCardConfig',
@@ -44,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'import_export',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
