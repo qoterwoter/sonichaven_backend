@@ -1,9 +1,12 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, pagination
+from rest_framework import status, pagination, viewsets, generics
 
-from .models import Genre
-from .serializers import GenreSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+
+from .models import Service, SoundDesigner, Arrangement, ShopCart, CartItem, Genre
+from .serializers import ServiceSerializer, SoundDesignerSerializer, ArrangementSerializer, ShopCartSerializer, CartItemSerializer, GenreSerializer
 
 class GenrePagination(pagination.PageNumberPagination):
     page_size = 10
@@ -24,3 +27,31 @@ class GenreList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ServiceAPIView(generics.ListCreateAPIView):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
+
+
+class SoundDesignerAPIView(generics.ListCreateAPIView):
+    queryset = SoundDesigner.objects.all()
+    serializer_class = SoundDesignerSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+class ArrangementViewSet(viewsets.ModelViewSet):
+    queryset = Arrangement.objects.all()
+    serializer_class = ArrangementSerializer
+
+class ShopCartViewSet(viewsets.ModelViewSet):
+    queryset = ShopCart.objects.all()
+    serializer_class = ShopCartSerializer
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset().filter(artist=request.user.artist_profile))
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+class CartItemViewSet(viewsets.ModelViewSet):
+    queryset = CartItem.objects.all()
+    serializer_class = CartItemSerializer
