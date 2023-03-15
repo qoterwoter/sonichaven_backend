@@ -39,19 +39,16 @@ class SoundDesignerAPIView(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-class ArrangementViewSet(viewsets.ModelViewSet):
+class ArrangementAPIView(generics.ListCreateAPIView):
     queryset = Arrangement.objects.all()
     serializer_class = ArrangementSerializer
 
-class ShopCartViewSet(viewsets.ModelViewSet):
+class ShopCartListCreateView(generics.ListCreateAPIView):
     queryset = ShopCart.objects.all()
     serializer_class = ShopCartSerializer
 
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset().filter(artist=request.user.artist_profile))
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
-
-class CartItemViewSet(viewsets.ModelViewSet):
-    queryset = CartItem.objects.all()
-    serializer_class = CartItemSerializer
+class ShopCartByArtist(APIView):
+    def get(self, request, artist_id):
+        carts = ShopCart.objects.filter(artist=artist_id)
+        serializer = ShopCartSerializer(carts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
