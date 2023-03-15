@@ -1,97 +1,21 @@
 [{
-    "model": "staff_service.service",
-    "pk": 15,
+    "model": "artist_card.song",
+    "pk": 11,
     "fields": {
-        "name": "Сведение и мастеринг 5.1",
-        "cost": 35000,
-        "type": "Exclusive"
+        "title": "My Friend of Misery",
+        "artist": 1,
+        "album": 1,
+        "duration": "00:06:48",
+        "track_number": 11
     }
 }, {
-    "model": "staff_service.service",
-    "pk": 16,
+    "model": "artist_card.song",
+    "pk": 12,
     "fields": {
-        "name": "Музыкальная копродукция",
-        "cost": 60000,
-        "type": "Exclusive"
-    }
-}, {
-    "model": "staff_service.service",
-    "pk": 17,
-    "fields": {
-        "name": "Ремикс трека",
-        "cost": 25000,
-        "type": "Exclusive"
-    }
-}, {
-    "model": "staff_service.service",
-    "pk": 18,
-    "fields": {
-        "name": "Запись на диктофон",
-        "cost": 3500,
-        "type": "Leasing"
-    }
-}, {
-    "model": "staff_service.service",
-    "pk": 19,
-    "fields": {
-        "name": "Полная аранжировка",
-        "cost": 20000,
-        "type": "Leasing+"
-    }
-}, {
-    "model": "staff_service.service",
-    "pk": 20,
-    "fields": {
-        "name": "Консультация по музыке",
-        "cost": 5000,
-        "type": "Leasing"
-    }
-}, {
-    "model": "staff_service.service",
-    "pk": 21,
-    "fields": {
-        "name": "Запись на стерео-микрофон",
-        "cost": 5000,
-        "type": "Leasing"
-    }
-}, {
-    "model": "staff_service.service",
-    "pk": 22,
-    "fields": {
-        "name": "Запись голоса с аккомпанементом",
-        "cost": 8000,
-        "type": "Leasing+"
-    }
-}, {
-    "model": "staff_service.service",
-    "pk": 23,
-    "fields": {
-        "name": "Изготовление фонограммы",
-        "cost": 5000,
-        "type": "Leasing+"
-    }
-}, {
-    "model": "staff_service.service",
-    "pk": 24,
-    "fields": {
-        "name": "Запись вокала в обработке",
-        "cost": 15000,
-        "type": "Leasing+"
-    }
-}, {
-    "model": "staff_service.service",
-    "pk": 25,
-    "fields": {
-        "name": "Аранжировка баллады",
-        "cost": 10000,
-        "type": "Leasing"
-    }
-}, {
-    "model": "staff_service.service",
-    "pk": 26,
-    "fields": {
-        "name": "Аранжировка блюза",
-        "cost": 12000,
-        "type": "Leasing+"
+        "title": "The Struggle Within",
+        "artist": 1,
+        "album": 1,
+        "duration": "00:03:53",
+        "track_number": 12
     }
 }]

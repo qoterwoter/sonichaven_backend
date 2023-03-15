@@ -52,7 +52,6 @@ class Song(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.track_number:
-            # get the next track number for the album
             next_track_number = Song.objects.filter(album=self.album).aggregate(
                 next_track_number=Count('id')
             )['next_track_number'] + 1

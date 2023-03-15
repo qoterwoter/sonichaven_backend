@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import timedelta
 from artist_card.models import Artist
+from django.contrib.auth.models import User
 
 class Genre(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -47,6 +48,7 @@ class SoundDesigner(models.Model):
     sex = models.CharField('Пол',max_length=1, choices=SEX_CHOICES)
     balance = models.DecimalField('Баланс',max_digits=8, decimal_places=2,default=0)
     services = models.ManyToManyField(Service, verbose_name='Услуги')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='sounddesigner_profile')
 
     class Meta:
         verbose_name = 'Звукоржессер'
