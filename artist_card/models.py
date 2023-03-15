@@ -9,21 +9,29 @@ class Artist(models.Model):
     bio = models.TextField(verbose_name='Описание артиста / группы')
 
     class Meta:
+        ordering = ['pk']
         verbose_name = 'Исполнитель'
         verbose_name_plural = 'Исполнители'
 
     def __str__(self):
         return self.name
  
-class Album(models.Model):
-    title = models.CharField('Название Альбома', max_length=100)
+class Release(models.Model):
+    TYPE_CHOICES = [
+        ('album', 'Альбом'),
+        ('mixtape', 'Микстейп'),
+        ('ep', 'Епи'),
+        ('single', 'Сингл'),
+    ]
+    title = models.CharField('Название', max_length=100)
     artist = models.ForeignKey(
         Artist,
         on_delete=models.CASCADE,
         verbose_name='Исполнитель',
     )
-    image = models.FileField(upload_to='images/album/',verbose_name='Обложка альбома')
+    image = models.CharField(max_length=255,verbose_name='Обложка')
     release_date = models.DateField('Дата выхода')
+    type = models.CharField('Тип релиза',max_length=12, choices=TYPE_CHOICES)   
 
     class Meta:
         ordering = ['artist']
@@ -36,14 +44,14 @@ class Album(models.Model):
 class Song(models.Model):
     title = models.CharField('Название песни',max_length=100)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE,verbose_name='Исполнитель')
-    album = models.ForeignKey(Album, on_delete=models.CASCADE,verbose_name='Альбом', related_name='songs')
+    release = models.ForeignKey(Release, on_delete=models.CASCADE,verbose_name='Релиз', related_name='songs')
     # audio_file = models.FileField(upload_to='audio_files/')
     duration = models.DurationField('Длительность',default=timedelta(minutes=0))
-    track_number = models.PositiveIntegerField('Номер песни в альбоме', blank=True, null=True)
+    track_number = models.PositiveIntegerField('Номер песни в релизе', blank=True, null=True)
 
     class Meta:
-        unique_together = ('album','track_number')
-        ordering = ['album', 'track_number']
+        unique_together = ('release','track_number')
+        ordering = ['release', 'track_number']
         verbose_name = 'Песня'
         verbose_name_plural = 'Песни'
 
@@ -52,7 +60,7 @@ class Song(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.track_number:
-            next_track_number = Song.objects.filter(album=self.album).aggregate(
+            next_track_number = Song.objects.filter(release=self.release).aggregate(
                 next_track_number=Count('id')
             )['next_track_number'] + 1
             self.track_number = next_track_number

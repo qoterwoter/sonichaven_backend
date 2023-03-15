@@ -1,13 +1,13 @@
 from django.contrib import admin
-from .models import Song, Album, Artist
+from .models import Song, Release, Artist
 from .forms import SongForm
 from django.utils.html import format_html_join
 
 class SongAdmin(admin.ModelAdmin):
     form = SongForm
-    list_display = ('title','artist','album','duration')
-    list_filter = ['artist','album']
-    search_fields = ('title','artist__name','album__title')
+    list_display = ('title','artist','release','duration')
+    list_filter = ['artist','release']
+    search_fields = ('title','artist__name','release__title')
 
 admin.site.register(Song, SongAdmin)
 
@@ -18,13 +18,13 @@ class SongInline(admin.TabularInline):
 
     autocomplete_fields = ('artist',)
 
-class AlbumAdmin(admin.ModelAdmin): 
+class ReleaseAdmin(admin.ModelAdmin): 
     list_display = ('id','title', 'artist','release_date')
     list_filter = ['artist']
     inlines = [SongInline]
     search_fields = ('title', 'artist__name')
     
-admin.site.register(Album, AlbumAdmin)
+admin.site.register(Release, ReleaseAdmin)
 
 class ArtistAdmin(admin.ModelAdmin):
     list_display = ('id','name', 'bio','user')

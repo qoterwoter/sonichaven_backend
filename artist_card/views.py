@@ -1,8 +1,8 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import generics
-from .models import Song, Album, Artist
-from .serializers import ArtistSerializer, AlbumSerializer, AlbumsSerializer
+from .models import Song, Release, Artist
+from .serializers import ArtistSerializer, ReleaseSerializer, ReleasesSerializer
 
 class ArtistList(generics.ListCreateAPIView):
     queryset = Artist.objects.all()
@@ -10,14 +10,14 @@ class ArtistList(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-class AlbumAPIView(generics.RetrieveAPIView):
-    queryset = Album.objects.all()
-    serializer_class = AlbumSerializer
+class ReleaseAPIView(generics.RetrieveAPIView):
+    queryset = Release.objects.all()
+    serializer_class = ReleaseSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-class AlbumsAPIView(generics.ListCreateAPIView):
-    queryset = Album.objects.all()
-    serializer_class = AlbumsSerializer
+class ReleasesAPIView(generics.ListCreateAPIView):
+    queryset = Release.objects.all()
+    serializer_class = ReleasesSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
