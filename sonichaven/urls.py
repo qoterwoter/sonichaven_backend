@@ -8,8 +8,6 @@ urlpatterns = [
     path('api/', include('news_blog.urls')),
     path('api/', include('artist_card.urls')),
     path('api/', include('staff_service.urls')),
-    path('api-auth/', include('rest_framework.urls')),
     path('api/register/', RegistrationView.as_view()),
     path('api/login/', LoginView.as_view()),
-
 ]

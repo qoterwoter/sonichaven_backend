@@ -6,6 +6,6 @@ urlpatterns = [
     path('services/', ServiceAPIView.as_view(), name='services'),
     path('sound_designers/', SoundDesignerAPIView.as_view(), name='sound_designers'),
     path('arrangements/', ArrangementAPIView.as_view(), name='arrangements'),
-    path('carts/', ShopCartListCreateView.as_view(), name='shopcart-list-create'),
-    path('carts/<int:artist_id>/', ShopCartByArtist.as_view(), name='shopcart-retrieve-update-destroy'),
+    path('carts/', ShopCartListCreateView.as_view(), name='shopcart'),
+    path('carts/<int:artist_id>/', ShopCartByArtist.as_view(), name='shopcart_by_artist'),
 ]
