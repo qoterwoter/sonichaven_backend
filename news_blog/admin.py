@@ -15,7 +15,7 @@ class NewsArticleInline(admin.TabularInline):
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_at', 'updated_at', 'author', 'display_articles')
+    list_display = ('id','title', 'created_at', 'updated_at', 'author', 'display_articles')
 
     inlines = [NewsArticleInline]
 

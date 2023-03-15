@@ -19,7 +19,7 @@ class SongInline(admin.TabularInline):
     autocomplete_fields = ('artist',)
 
 class AlbumAdmin(admin.ModelAdmin): 
-    list_display = ('title', 'artist','release_date')
+    list_display = ('id','title', 'artist','release_date')
     list_filter = ['artist']
     inlines = [SongInline]
     search_fields = ('title', 'artist__name')

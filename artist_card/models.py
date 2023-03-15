@@ -36,7 +36,7 @@ class Album(models.Model):
 class Song(models.Model):
     title = models.CharField('Название песни',max_length=100)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE,verbose_name='Исполнитель')
-    album = models.ForeignKey(Album, on_delete=models.CASCADE,verbose_name='Альбом')
+    album = models.ForeignKey(Album, on_delete=models.CASCADE,verbose_name='Альбом', related_name='songs')
     # audio_file = models.FileField(upload_to='audio_files/')
     duration = models.DurationField('Длительность',default=timedelta(minutes=0))
     track_number = models.PositiveIntegerField('Номер песни в альбоме', blank=True, null=True)
