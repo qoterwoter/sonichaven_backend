@@ -31,7 +31,7 @@ class Release(models.Model):
     )
     image = models.CharField(max_length=255,verbose_name='Обложка')
     release_date = models.DateField('Дата выхода')
-    type = models.CharField('Тип релиза',max_length=12, choices=TYPE_CHOICES)   
+    type = models.CharField('Тип релиза', max_length=12, choices=TYPE_CHOICES)   
 
     class Meta:
         ordering = ['artist']

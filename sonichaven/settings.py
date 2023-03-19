@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-vc4u68-3da9onlztg(jd0q!u2&dhy)eamir5%s)eh&%$9+^hb1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://sonichaven_backend.std-962.ist.mospolytech.ru']
 
 # AUTH_USER_MODEL = 'sonichaven.Artist'
 
