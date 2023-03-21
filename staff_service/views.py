@@ -48,6 +48,8 @@ class ShopCartListCreateView(generics.ListCreateAPIView):
     serializer_class = ShopCartSerializer
 
 class ShopCartByArtist(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     def get(self, request, artist_id):
         carts = ShopCart.objects.filter(artist=artist_id)
         serializer = ShopCartSerializer(carts, many=True)

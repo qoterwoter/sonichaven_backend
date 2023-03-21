@@ -1,5 +1,8 @@
 venv
 static
 
+
+# Generated data in json files
 data.json
 users.json
+album.json

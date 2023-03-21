@@ -49,9 +49,11 @@ class ShopCartAdmin(admin.ModelAdmin):
         return ', '.join([item.service.name for item in obj.items.all()])
     display_services.short_description = 'Услуги'   
     def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+
         # calculate the sum
         obj.sum = sum(item.service.cost * item.quantity for item in obj.items.all())
-        super().save_model(request, obj, form, change)
+        obj.save()
 
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):

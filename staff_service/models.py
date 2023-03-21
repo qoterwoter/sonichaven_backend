@@ -111,3 +111,18 @@ class CartItem(models.Model):
     class Meta:
         verbose_name = 'Позиция в корзине'
         verbose_name_plural = 'Позиции в корзине'
+
+class Contract(models.Model):
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    contract_terms = models.TextField()
+    signing_date = models.DateField()
+    duration = models.PositiveIntegerField(help_text='Длительность контракта в месяцах')
+    artist_signature = models.TextField(blank=True, null=True)
+    studio_admin_signature = models.TextField(blank=True, null=True)
+    
+    def __str__(self):
+        return f'{self.artist.name} - {self.signing_date} ({self.duration} месяцев)'
+    
+    class Meta:
+        verbose_name = 'Контракт'
+        verbose_name_plural = 'Контракты'
