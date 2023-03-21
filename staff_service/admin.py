@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Arrangement, SoundDesigner, Service, ShopCart, CartItem, Genre
+from .models import Arrangement, SoundDesigner, Service, ShopCart, CartItem, Genre, Contract
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 from django.utils.html import format_html_join
@@ -64,3 +64,11 @@ class CartItemAdmin(admin.ModelAdmin):
 class GenreAdmin(ImportExportModelAdmin):
     list_display= ('pk','name',)
     ordering = ('pk',)
+
+class ContractAdmin(admin.ModelAdmin):
+    list_display = ('artist', 'signing_date', 'duration', 'contract_terms',)
+    search_fields = ('artist__name',)
+    list_filter = ('signing_date',)
+    date_hierarchy = 'signing_date'
+
+admin.site.register(Contract, ContractAdmin)
