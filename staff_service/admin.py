@@ -26,10 +26,12 @@ class SoundDesignerAdmin(ImportExportModelAdmin):
     ordering = ('pk',)
 
 @admin.register(Service)
-class ServiceAdmin(admin.ModelAdmin):
+class ServiceAdmin(ImportExportModelAdmin):
     list_display = ('pk','name', 'display_cost')
+    search_fields = ('name',)
+    list_filter = ('type',)
     def display_cost(self, obj):
-        return "$" + str(obj.cost)
+        return str(obj.cost) + " руб."
     display_cost.short_description = 'Стоимость'
     ordering = ('pk',)
 
