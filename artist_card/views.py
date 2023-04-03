@@ -49,9 +49,10 @@ def artist_info(request):
 
     data = {
         'user_id': user.id,
+        'artist_id': artist.id,
         'username': user.username,
         'email': user.email,
         'artist_name': artist.name,
-        'artist_bio': artist.bio
+        'artist_bio': artist.bio,
     }
     return Response(data)
