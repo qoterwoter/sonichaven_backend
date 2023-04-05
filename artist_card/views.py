@@ -26,8 +26,6 @@ class ReleaseAPIView(generics.RetrieveAPIView):
 class ReleasesAPIView(generics.ListCreateAPIView):
     queryset = Release.objects.all()
     serializer_class = ReleasesSerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
 
 
 from rest_framework.decorators import api_view, permission_classes

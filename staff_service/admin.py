@@ -14,7 +14,7 @@ class SoundDesignerAdmin(ImportExportModelAdmin):
     list_display = ('pk','name', 'surname', 'nickname', 'sex', 'display_balance', 'services_list')
 
     def display_balance(self, obj):
-        return "$" + str(obj.balance)
+        return "Руб" + str(obj.balance)
     display_balance.short_description = 'Баланс'
 
     def services_list(self, obj):
@@ -45,7 +45,7 @@ class ShopCartAdmin(admin.ModelAdmin):
     readonly_fields = ('sum',)
 
     def display_sum(self, obj):
-        return "$" + str(obj.sum)
+        return "Руб" + str(obj.sum)
     display_sum.short_description = 'Сумма'
     def display_services(self, obj):
         return ', '.join([item.service.name for item in obj.items.all()])
