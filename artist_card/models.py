@@ -35,8 +35,8 @@ class Release(models.Model):
 
     class Meta:
         ordering = ['artist']
-        verbose_name = 'Альбом'
-        verbose_name_plural = 'Альбомы'
+        verbose_name = 'Релиз'
+        verbose_name_plural = 'Релизы'
 
     def __str__ (self):
             return self.title

@@ -16,7 +16,7 @@ class GenrePagination(pagination.PageNumberPagination):
 class GenreList(APIView):
     def get(self, request):
         genres = Genre.objects.all()
-        paginator = GenrePagination()   
+        paginator = GenrePagination()
         result_page = paginator.paginate_queryset(genres, request)
         serializer = GenreSerializer(result_page, many=True)
         return paginator.get_paginated_response(serializer.data)
@@ -27,6 +27,7 @@ class GenreList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class ServiceAPIView(generics.ListCreateAPIView):
     queryset = Service.objects.all()

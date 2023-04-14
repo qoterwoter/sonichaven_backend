@@ -1,8 +1,32 @@
 from django.contrib import admin
-from .models import Arrangement, SoundDesigner, Service, ShopCart, CartItem, Genre, Contract
+from .models import Arrangement, SoundDesigner, Service, ShopCart, CartItem, Genre, Contract, Manager
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 from django.utils.html import format_html_join
+from django import forms
+from django.contrib.auth.models import User
+
+
+class ManagerAdminForm(forms.ModelForm):
+    class Meta:
+        model = Manager
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['user'].queryset = User.objects.filter(is_active=True, is_staff=True, is_superuser=False)
+
+
+
+@admin.register(Manager)
+class ManagerAdmin(admin.ModelAdmin):
+    form = ManagerAdminForm
+    list_display = ('user', 'enjoy_date', 'display_payment')
+    search_fields = ['user', 'payment']
+
+    def display_payment(self, obj):
+        return str(obj.payment) + " Руб"
+    display_payment.short_description = 'Зарплата'
 
 @admin.register(Arrangement)
 class ArrangementAdmin(admin.ModelAdmin):
@@ -64,7 +88,8 @@ class CartItemAdmin(admin.ModelAdmin):
 
 @admin.register(Genre)
 class GenreAdmin(ImportExportModelAdmin):
-    list_display= ('pk','name',)
+    list_display= ('pk', 'title',)
+    search_fields = ('title',)
     ordering = ('pk',)
 
 class ContractAdmin(admin.ModelAdmin):
