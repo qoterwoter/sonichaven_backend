@@ -16,14 +16,21 @@ class SongInline(admin.TabularInline):
     extra = 1
     fields = ('title', 'duration','artist')
 
-    autocomplete_fields = ('artist',)
-
-class ReleaseAdmin(admin.ModelAdmin): 
-    list_display = ('id','title', 'artist','release_date')
+class ReleaseAdmin(admin.ModelAdmin):
+    list_display = ('title', 'artist', 'release_date')
     list_filter = ['artist']
     inlines = [SongInline]
     search_fields = ('title', 'artist__name')
-    
+    can_delete = True
+
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'artist', 'image', 'release_date', 'type')
+        }),
+    )
+
+
+
 admin.site.register(Release, ReleaseAdmin)
 
 class ArtistAdmin(admin.ModelAdmin):

@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost','http://sonichaven-backend.std-962.ist.mospolytech.ru/','sonichaven-backend.std-962.ist.mospolytech.ru','127.0.0.1']
 
-# AUTH_USER_MODEL = 'sonichaven.Artist'
+AUTH_USER_MODEL = 'sonichaven.User'
 
 # Application definition
 REST_FRAMEWORK = {
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'artist_card.apps.ArtistCardConfig',
     'staff_service',
     'news_blog',
+    'sonichaven.apps.SonicHavenConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

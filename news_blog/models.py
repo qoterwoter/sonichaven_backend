@@ -1,11 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 class News(models.Model):
     title = models.CharField('Заголовок', max_length=100)
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
     updated_at = models.DateTimeField('Дата обновления', auto_now=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'is_staff': True})
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, limit_choices_to={'is_staff': True})
 
     class Meta:
         verbose_name = 'Новость'
