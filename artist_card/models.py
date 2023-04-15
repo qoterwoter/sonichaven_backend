@@ -1,10 +1,10 @@
 from django.db import models
 from datetime import timedelta
 from django.db.models import Count
-from django.contrib.auth.models import User
+from django.conf import settings
 
 class Artist(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='artist_profile')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь', limit_choices_to={'is_artist': True})
     name = models.CharField('Имя артиста / группы', max_length=100)
     bio = models.TextField(verbose_name='Описание артиста / группы')
 

@@ -1,0 +1,420 @@
+[
+  {
+    "model": "artist_card.release",
+    "pk": 1,
+    "fields": {
+      "title": "25",
+      "artist": 3,
+      "image": "https://upload.wikimedia.org/wikipedia/ru/a/aa/Adele_25.jpg",
+      "release_date": "2015-11-25",
+      "type": "album"
+    }
+  },
+  {
+    "model": "artist_card.release",
+    "pk": 2,
+    "fields": {
+      "title": "Evolve",
+      "artist": 3,
+      "image": "https://upload.wikimedia.org/wikipedia/ru/7/7d/Imagine_Dragons_Evolve_Cover.jpg",
+      "release_date": "2017-06-23",
+      "type": "album"
+    }
+  },
+  {
+    "model": "artist_card.release",
+    "pk": 3,
+    "fields": {
+      "title": "Night visions",
+      "artist": 3,
+      "image": "https://upload.wikimedia.org/wikipedia/ru/7/7d/Imagine_Dragons_Evolve_Cover.jpg",
+      "release_date": "2017-06-23",
+      "type": "album"
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 1,
+    "fields": {
+      "title": "Radioactive",
+      "artist": 3,
+      "release": 1,
+      "duration": "00:03:06",
+      "track_number": 1
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 2,
+    "fields": {
+      "title": "Tiptoe",
+      "artist": 3,
+      "release": 1,
+      "duration": "00:03:14",
+      "track_number": 2
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 3,
+    "fields": {
+      "title": "It's Time",
+      "artist": 3,
+      "release": 1,
+      "duration": "00:04:00",
+      "track_number": 3
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 4,
+    "fields": {
+      "title": "Demons",
+      "artist": 3,
+      "release": 1,
+      "duration": "00:02:57",
+      "track_number": 4
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 5,
+    "fields": {
+      "title": "On Top of the World",
+      "artist": 3,
+      "release": 1,
+      "duration": "00:03:12",
+      "track_number": 5
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 6,
+    "fields": {
+      "title": "Amsterdam",
+      "artist": 3,
+      "release": 1,
+      "duration": "00:04:01",
+      "track_number": 6
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 7,
+    "fields": {
+      "title": "Hear Me",
+      "artist": 3,
+      "release": 1,
+      "duration": "00:03:55",
+      "track_number": 7
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 8,
+    "fields": {
+      "title": "Every Night",
+      "artist": 3,
+      "release": 1,
+      "duration": "00:03:37",
+      "track_number": 8
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 9,
+    "fields": {
+      "title": "Bleeding Out",
+      "artist": 3,
+      "release": 1,
+      "duration": "00:03:43",
+      "track_number": 9
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 10,
+    "fields": {
+      "title": "Underdog",
+      "artist": 3,
+      "release": 1,
+      "duration": "00:03:29",
+      "track_number": 10
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 11,
+    "fields": {
+      "title": "Nothing Left To Say / Rocks - Medley",
+      "artist": 3,
+      "release": 1,
+      "duration": "00:08:57",
+      "track_number": 11
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 12,
+    "fields": {
+      "title": "Cha-Ching (Till We Grow Older)",
+      "artist": 3,
+      "release": 1,
+      "duration": "00:04:09",
+      "track_number": 12
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 13,
+    "fields": {
+      "title": "Working Man",
+      "artist": 3,
+      "release": 1,
+      "duration": "00:03:53",
+      "track_number": 13
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 14,
+    "fields": {
+      "title": "Tokyo",
+      "artist": 3,
+      "release": 1,
+      "duration": "00:03:15",
+      "track_number": 14
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 15,
+    "fields": {
+      "title": "Hello",
+      "artist": 4,
+      "release": 2,
+      "duration": "00:04:55",
+      "track_number": 1
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 16,
+    "fields": {
+      "title": "Send My Love (To Your New Lover)",
+      "artist": 4,
+      "release": 2,
+      "duration": "00:03:43",
+      "track_number": 2
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 17,
+    "fields": {
+      "title": "I Miss You",
+      "artist": 4,
+      "release": 2,
+      "duration": "00:05:49",
+      "track_number": 3
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 18,
+    "fields": {
+      "title": "When We Were Young",
+      "artist": 4,
+      "release": 2,
+      "duration": "00:04:50",
+      "track_number": 4
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 19,
+    "fields": {
+      "title": "Remedy",
+      "artist": 4,
+      "release": 2,
+      "duration": "00:04:05",
+      "track_number": 5
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 20,
+    "fields": {
+      "title": "Water Under the Bridge",
+      "artist": 4,
+      "release": 2,
+      "duration": "00:04:00",
+      "track_number": 6
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 21,
+    "fields": {
+      "title": "River Lea",
+      "artist": 4,
+      "release": 2,
+      "duration": "00:03:45",
+      "track_number": 7
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 22,
+    "fields": {
+      "title": "Love in the Dark",
+      "artist": 4,
+      "release": 2,
+      "duration": "00:04:45",
+      "track_number": 8
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 23,
+    "fields": {
+      "title": "Million Years Ago",
+      "artist": 4,
+      "release": 2,
+      "duration": "00:03:47",
+      "track_number": 9
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 24,
+    "fields": {
+      "title": "All I Ask",
+      "artist": 4,
+      "release": 2,
+      "duration": "00:04:31",
+      "track_number": 10
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 25,
+    "fields": {
+      "title": "Sweetest Devotion",
+      "artist": 4,
+      "release": 2,
+      "duration": "00:04:11",
+      "track_number": 11
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 26,
+    "fields": {
+      "title": "Next To Me",
+      "artist": 3,
+      "release": 3,
+      "duration": "00:03:50",
+      "track_number": 1
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 27,
+    "fields": {
+      "title": "I Don't Know Why",
+      "artist": 3,
+      "release": 3,
+      "duration": "00:03:10",
+      "track_number": 2
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 28,
+    "fields": {
+      "title": "Whatever It Takes",
+      "artist": 3,
+      "release": 3,
+      "duration": "00:03:21",
+      "track_number": 3
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 29,
+    "fields": {
+      "title": "Believer",
+      "artist": 3,
+      "release": 3,
+      "duration": "00:03:23",
+      "track_number": 4
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 30,
+    "fields": {
+      "title": "Walking The Wire",
+      "artist": 3,
+      "release": 3,
+      "duration": "00:03:52",
+      "track_number": 5
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 31,
+    "fields": {
+      "title": "Rise Up",
+      "artist": 3,
+      "release": 3,
+      "duration": "00:03:52",
+      "track_number": 6
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 32,
+    "fields": {
+      "title": "I'll Make It Up To You",
+      "artist": 3,
+      "release": 3,
+      "duration": "00:04:22",
+      "track_number": 7
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 33,
+    "fields": {
+      "title": "Yesterday",
+      "artist": 3,
+      "release": 3,
+      "duration": "00:03:25",
+      "track_number": 8
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 34,
+    "fields": {
+      "title": "Mouth of the River",
+      "artist": 3,
+      "release": 3,
+      "duration": "00:03:41",
+      "track_number": 9
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 35,
+    "fields": {
+      "title": "Thunder",
+      "artist": 3,
+      "release": 3,
+      "duration": "00:03:07",
+      "track_number": 10
+    }
+  }
+]
