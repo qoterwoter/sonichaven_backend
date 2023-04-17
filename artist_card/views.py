@@ -1,9 +1,10 @@
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import generics, status
-from django.contrib.auth import get_user_model
 from .models import Release, Artist
 from .serializers import ArtistSerializer, ReleaseSerializer, ReleasesSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from .models import Artist
 
 
 class ArtistList(generics.ListCreateAPIView):
@@ -26,31 +27,3 @@ class ReleaseAPIView(generics.RetrieveAPIView):
 class ReleasesAPIView(generics.ListCreateAPIView):
     queryset = Release.objects.all()
     serializer_class = ReleasesSerializer
-
-
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from django.contrib.auth import authenticate
-from .models import Artist
-
-User = get_user_model()
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def artist_info(request):
-    user = request.user
-    try:
-        artist = user.artist_profile
-    except Artist.DoesNotExist:
-        return Response({'error': 'Artist profile does not exist.'}, status=404)
-
-    data = {
-        'user_id': user.id,
-        'artist_id': artist.id,
-        'username': user.username,
-        'email': user.email,
-        'artist_name': artist.name,
-        'artist_bio': artist.bio,
-    }
-    return Response(data)

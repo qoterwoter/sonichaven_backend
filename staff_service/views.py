@@ -1,10 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, pagination, viewsets, generics
-
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
-
 from .models import Service, SoundDesigner, Arrangement, ShopCart, CartItem, Genre
 from .serializers import ServiceSerializer, SoundDesignerSerializer, ArrangementSerializer, ShopCartSerializer, CartItemSerializer, GenreSerializer
 
@@ -28,11 +26,9 @@ class GenreList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 class ServiceAPIView(generics.ListCreateAPIView):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
-
 
 class SoundDesignerAPIView(generics.ListCreateAPIView):
     queryset = SoundDesigner.objects.all()
@@ -47,6 +43,8 @@ class ArrangementAPIView(generics.ListCreateAPIView):
 class ShopCartListCreateView(generics.ListCreateAPIView):
     queryset = ShopCart.objects.all()
     serializer_class = ShopCartSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 class ShopCartByArtist(APIView):
     authentication_classes = [TokenAuthentication]

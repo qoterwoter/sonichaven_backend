@@ -3,6 +3,6 @@ static
 
 
 # Generated data in json files
-data.json
+dump_data/data.json
 users.json
-album.json
+dump_data/album.json

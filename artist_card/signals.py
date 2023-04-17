@@ -4,10 +4,12 @@ from .models import Artist
 from sonichaven.models import User
 from django.contrib.auth.models import Group
 
+
 @receiver(post_save, sender=User)
 def create_artist(sender, instance, created, **kwargs):
     if created and instance.is_artist:
         Artist.objects.create(user=instance, name=instance.username)
+
 
 @receiver(post_save, sender=User)
 def add_user_to_artist_group(sender, instance, created, **kwargs):

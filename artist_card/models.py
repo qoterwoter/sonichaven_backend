@@ -3,8 +3,10 @@ from datetime import timedelta
 from django.db.models import Count
 from django.conf import settings
 
+
 class Artist(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь', limit_choices_to={'is_artist': True})
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь',
+                             limit_choices_to={'is_artist': True})
     name = models.CharField('Имя артиста / группы', max_length=100)
     bio = models.TextField(verbose_name='Описание артиста / группы')
 
@@ -15,7 +17,8 @@ class Artist(models.Model):
 
     def __str__(self):
         return self.name
- 
+
+
 class Release(models.Model):
     TYPE_CHOICES = [
         ('album', 'Альбом'),
@@ -29,33 +32,34 @@ class Release(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Исполнитель',
     )
-    image = models.CharField(max_length=255,verbose_name='Обложка')
+    image = models.CharField(max_length=255, verbose_name='Обложка')
     release_date = models.DateField('Дата выхода')
-    type = models.CharField('Тип релиза', max_length=12, choices=TYPE_CHOICES)   
+    type = models.CharField('Тип релиза', max_length=12, choices=TYPE_CHOICES)
 
     class Meta:
         ordering = ['artist']
         verbose_name = 'Релиз'
         verbose_name_plural = 'Релизы'
 
-    def __str__ (self):
-            return self.title
+    def __str__(self):
+        return self.title
+
 
 class Song(models.Model):
-    title = models.CharField('Название песни',max_length=100)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE,verbose_name='Исполнитель')
-    release = models.ForeignKey(Release, on_delete=models.CASCADE,verbose_name='Релиз', related_name='songs')
+    title = models.CharField('Название песни', max_length=100)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, verbose_name='Исполнитель')
+    release = models.ForeignKey(Release, on_delete=models.CASCADE, verbose_name='Релиз', related_name='songs')
     # audio_file = models.FileField(upload_to='audio_files/')
-    duration = models.DurationField('Длительность',default=timedelta(minutes=0))
+    duration = models.DurationField('Длительность', default=timedelta(minutes=0))
     track_number = models.PositiveIntegerField('Номер песни в релизе', blank=True, null=True)
 
     class Meta:
-        unique_together = ('release','track_number')
+        unique_together = ('release', 'track_number')
         ordering = ['release', 'track_number']
         verbose_name = 'Песня'
         verbose_name_plural = 'Песни'
 
-    def __str__ (self):
+    def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
