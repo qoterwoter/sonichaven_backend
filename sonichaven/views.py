@@ -1,10 +1,14 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
 from rest_framework.authtoken.models import Token
-from django.contrib.auth import authenticate
-from .serializers import UserSerializer
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
+from django.contrib.auth import authenticate, login
+from django.shortcuts import get_object_or_404
 from artist_card.models import Artist
+from artist_card.serializers import ArtistSerializer
+from .serializers import UserSerializer
+
 
 class RegistrationView(APIView):
     def post(self, request):
@@ -16,28 +20,28 @@ class RegistrationView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class LoginView(APIView):
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
+        if not username or not password:
+            return Response({'error': 'Please provide both username and password'}, status=status.HTTP_400_BAD_REQUEST)
+
         user = authenticate(username=username, password=password)
-        if user:
-            token, created = Token.objects.get_or_create(user=user)
-            try:
-                artist = user.artist_profile
-            except Artist.DoesNotExist:
-                return Response({'error': 'Artist profile does not exist.'}, status=404)
-
-            data = {
-                'token': token.key,
-                'user_id': user.id,
-                'artist_id': artist.id,
-                'username': user.username,
-                'email': user.email,
-                'artist_name': artist.name,
-                'artist_bio': artist.bio,
-            }
-
-            return Response(data, status=status.HTTP_200_OK)
-        else:
+        if not user:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        login(request, user)
+        token, created = Token.objects.get_or_create(user=user)
+
+        # Retrieve related artist info
+        artist = get_object_or_404(Artist, user=user)
+        artist_data = ArtistSerializer(artist).data
+
+        # Serialize and return user data with related artist info
+        user_data = UserSerializer(user).data
+        user_data['artist'] = artist_data
+        user_data['token'] = token.key
+
+        return Response(user_data, status=status.HTTP_200_OK)
