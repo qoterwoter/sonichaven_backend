@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Arrangement, SoundDesigner, Service, ShopCart, CartItem, Genre, Contract, Manager
+from .models import Arrangement, SoundEngineer, Service, ShopCart, CartItem, Genre, Contract, Manager
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 from django.utils.html import format_html_join
@@ -33,7 +33,7 @@ class ArrangementAdmin(admin.ModelAdmin):
     list_display = ('genre', 'duration', 'cost', 'format', 'author')
     list_filter = ('genre', 'format', 'author')
 
-@admin.register(SoundDesigner)
+@admin.register(SoundEngineer)
 class SoundDesignerAdmin(ImportExportModelAdmin):
     list_display = ('pk','name', 'surname', 'nickname', 'sex', 'display_balance', 'services_list')
 

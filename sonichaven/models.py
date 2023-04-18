@@ -12,6 +12,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
 
+
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_artist', False)
@@ -30,8 +31,8 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-    is_soundengineer = models.BooleanField('Статус звукорежиссера',default=False)
-    is_artist = models.BooleanField('Статус артиста',default=False)
+    is_soundengineer = models.BooleanField('Статус звукорежиссера', default=False)
+    is_artist = models.BooleanField('Статус артиста', default=False)
     # add related_name argument to resolve clashes with reverse relation names
     groups = models.ManyToManyField(Group, blank=True, related_name='users_in_group')
 
@@ -44,9 +45,8 @@ class User(AbstractUser):
         verbose_name=('user permissions'),
         help_text=(
             'Specific permissions for this user.'),
-        )
+    )
 
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
-

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Service, SoundDesigner, Arrangement, ShopCart, CartItem, Genre
+from .models import Service, SoundEngineer, Arrangement, ShopCart, CartItem, Genre
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,7 +18,7 @@ class SoundDesignerSerializer(serializers.ModelSerializer):
     services = ServiceSerializer(many=True)
 
     class Meta:
-        model = SoundDesigner
+        model = SoundEngineer
         fields = ['id', 'name', 'surname', 'nickname', 'sex', 'balance', 'services']
 
 

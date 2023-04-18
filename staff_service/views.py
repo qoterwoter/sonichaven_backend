@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status, pagination, viewsets, generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
-from .models import Service, SoundDesigner, Arrangement, ShopCart, CartItem, Genre
+from .models import Service, SoundEngineer, Arrangement, ShopCart, CartItem, Genre
 from .serializers import ServiceSerializer, SoundDesignerSerializer, ArrangementSerializer, ShopCartSerializer, CartItemSerializer, GenreSerializer
 
 class GenrePagination(pagination.PageNumberPagination):
@@ -31,7 +31,7 @@ class ServiceAPIView(generics.ListCreateAPIView):
     serializer_class = ServiceSerializer
 
 class SoundDesignerAPIView(generics.ListCreateAPIView):
-    queryset = SoundDesigner.objects.all()
+    queryset = SoundEngineer.objects.all()
     serializer_class = SoundDesignerSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
