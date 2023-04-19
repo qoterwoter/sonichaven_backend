@@ -23,6 +23,8 @@ class ReleaseSerializer(serializers.ModelSerializer):
 
 
 class ReleasesSerializer(serializers.ModelSerializer):
+    artist_name = serializers.CharField(source='artist.name', read_only=True)
+
     class Meta:
         model = Release
-        fields = ['title', 'artist', 'image', 'release_date']
+        fields = ['title', 'artist_name', 'image', 'release_date']
