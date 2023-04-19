@@ -5,4 +5,4 @@ static
 # Generated data in json files
 dump_data/data.json
 users.json
-dump_data/album.json
+dump_data/users.json
