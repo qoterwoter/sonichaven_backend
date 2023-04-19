@@ -11,7 +11,7 @@ class GenreSerializer(serializers.ModelSerializer):
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
-        fields = ['id', 'name', 'cost', 'type']
+        fields = ['id', 'name', 'cost', 'type','description']
 
 
 class SoundDesignerSerializer(serializers.ModelSerializer):
