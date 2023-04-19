@@ -51,7 +51,7 @@ class SoundDesignerAdmin(ImportExportModelAdmin):
 
 @admin.register(Service)
 class ServiceAdmin(ImportExportModelAdmin):
-    list_display = ('pk','name', 'display_cost')
+    list_display = ('pk','name', 'display_cost','description')
     search_fields = ('name',)
     list_filter = ('type',)
     def display_cost(self, obj):
