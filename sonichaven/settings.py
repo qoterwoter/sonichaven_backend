@@ -40,7 +40,7 @@ REST_FRAMEWORK = {
 
 INSTALLED_APPS = [
     'artist_card.apps.ArtistCardConfig',
-    'staff_service',
+    'staff_service.apps.StaffServiceConfig',
     'news_blog',
     'sonichaven.apps.SonicHavenConfig',
     'django.contrib.admin',
