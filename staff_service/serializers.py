@@ -11,7 +11,7 @@ class GenreSerializer(serializers.ModelSerializer):
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
-        fields = ['id', 'name', 'cost', 'type','description']
+        fields = ['id', 'name', 'cost', 'type', 'description']
 
 
 class SoundDesignerSerializer(serializers.ModelSerializer):
@@ -32,9 +32,11 @@ class ArrangementSerializer(serializers.ModelSerializer):
 
 
 class CartItemSerializer(serializers.ModelSerializer):
+    service = ServiceSerializer()
+
     class Meta:
         model = CartItem
-        fields = '__all__'
+        fields = ['id', 'quantity', 'service']
         read_only_fields = ['id']
 
     def validate(self, data):
