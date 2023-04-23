@@ -2,11 +2,12 @@ from rest_framework.authtoken.models import Token
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate, login
 from django.shortcuts import get_object_or_404
 from artist_card.models import Artist
 from artist_card.serializers import ArtistSerializer
+from staff_service.models import ShopCart
+from staff_service.serializers import ShopCartSerializer
 from .serializers import UserSerializer
 
 
@@ -44,4 +45,9 @@ class LoginView(APIView):
         user_data['artist'] = artist_data
         user_data['token'] = token.key
 
+        # Retrieve cart ID
+        cart = ShopCart.objects.filter(artist=artist).first()
+        user_data['cart_id'] = cart.id if cart else None
+
         return Response(user_data, status=status.HTTP_200_OK)
+
