@@ -69,7 +69,7 @@ class CartItemSerializer(serializers.ModelSerializer):
 
 class ShopCartSerializer(serializers.ModelSerializer):
     artist = serializers.StringRelatedField()
-    items = CartItemSerializer(many=True)
+    items = CartItemUpdateSerializer(many=True)
 
     class Meta:
         model = ShopCart
