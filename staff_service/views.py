@@ -4,6 +4,7 @@ from rest_framework import status, pagination, viewsets, generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from .models import Service, SoundEngineer, Arrangement, ShopCart, CartItem, Genre
+from artist_card.models import Artist
 from .serializers import ServiceSerializer, SoundDesignerSerializer, ArrangementSerializer, ShopCartSerializer, CartItemSerializer, GenreSerializer
 
 class GenrePagination(pagination.PageNumberPagination):
@@ -46,10 +47,40 @@ class ShopCartListCreateView(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-class ShopCartByArtist(APIView):
-    authentication_classes = [TokenAuthentication]
+    def perform_create(self, serializer):
+        serializer.save(artist=self.request.user.artist)
+
+    def get_queryset(self):
+        artist = Artist.objects.filter(user=self.request.user).first()
+        return ShopCart.objects.filter(artist=artist)
+
+class CartItemViewSet(viewsets.ModelViewSet):
+    queryset = CartItem.objects.all()
+    serializer_class = CartItemSerializer
     permission_classes = [IsAuthenticated]
-    def get(self, request, artist_id):
-        carts = ShopCart.objects.filter(artist=artist_id)
-        serializer = ShopCartSerializer(carts, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
+
+
+class CartItemRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CartItem.objects.all()
+    serializer_class = CartItemSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        obj = super().get_object()
+        if obj.cart.artist != self.request.user.artist:
+            self.permission_denied(self.request)
+        return obj

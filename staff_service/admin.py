@@ -63,13 +63,13 @@ class CartItemInline(admin.TabularInline):
     model = CartItem
     extra = 1
 @admin.register(ShopCart)
-class ShopCartAdmin(admin.ModelAdmin):
+class ShopCartAdmin(ImportExportModelAdmin):
     list_display= ('id', 'artist', 'display_sum','display_services')
     inlines = [CartItemInline]
     readonly_fields = ('sum',)
 
     def display_sum(self, obj):
-        return "Руб" + str(obj.sum)
+        return str(obj.sum) + ' Руб.'
     display_sum.short_description = 'Сумма'
     def display_services(self, obj):
         return ', '.join([item.service.name for item in obj.items.all()])
@@ -83,7 +83,7 @@ class ShopCartAdmin(admin.ModelAdmin):
 
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
-    list_display = ('service', 'quantity', 'cart')
+    list_display = ('service', 'pk', 'quantity', 'cart')
 
 
 @admin.register(Genre)

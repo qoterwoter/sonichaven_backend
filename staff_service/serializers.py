@@ -32,12 +32,34 @@ class ArrangementSerializer(serializers.ModelSerializer):
 
 
 class CartItemSerializer(serializers.ModelSerializer):
-    service = ServiceSerializer()
-
     class Meta:
         model = CartItem
-        fields = ['id', 'quantity', 'service']
+        fields = '__all__'
+        read_only_fields = ['id']
 
+    def validate(self, data):
+        cart = data['cart']
+        service = data['service']
+
+        # Check if the combination of cart and service already exists
+        queryset = CartItem.objects.filter(cart=cart, service=service)
+
+        if self.instance:
+            # Exclude the current object being updated from the queryset
+            queryset = queryset.exclude(pk=self.instance.pk)
+
+        if queryset.exists():
+            raise serializers.ValidationError('CartItem already exists')
+
+        return data
+
+    def update(self, instance, validated_data):
+        # Check if the combination of cart and service already exists for other instances
+        cart = validated_data.get('cart', instance.cart)
+        service = validated_data.get('service', instance.service)
+        if CartItem.objects.filter(cart=cart, service=service).exclude(pk=instance.pk).exists():
+            raise serializers.ValidationError('CartItem already exists')
+        return super().update(instance, validated_data)
 
 class ShopCartSerializer(serializers.ModelSerializer):
     artist = serializers.StringRelatedField()
@@ -46,3 +68,9 @@ class ShopCartSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShopCart
         fields = ['id', 'artist', 'sum', 'items']
+    def create(self, validated_data):
+        items_data = validated_data.pop('items')
+        shop_cart = ShopCart.objects.create(**validated_data)
+        for item_data in items_data:
+            CartItem.objects.create(cart=shop_cart, **item_data)
+        return shop_cart

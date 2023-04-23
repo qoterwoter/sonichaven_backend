@@ -1,11 +1,19 @@
-from django.urls import path
-from .views import GenreList, ServiceAPIView, SoundDesignerAPIView, ArrangementAPIView, ShopCartListCreateView, ShopCartByArtist
+from django.urls import path, include
+from .views import GenreList, ServiceAPIView, SoundDesignerAPIView, ArrangementAPIView, ShopCartListCreateView, \
+CartItemViewSet
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'cart-items', CartItemViewSet)
+
 
 urlpatterns = [
     path('genres/', GenreList.as_view(), name='genre_list'),
     path('services/', ServiceAPIView.as_view(), name='services'),
     path('sound_designers/', SoundDesignerAPIView.as_view(), name='sound_designers'),
     path('arrangements/', ArrangementAPIView.as_view(), name='arrangements'),
-    path('carts/', ShopCartListCreateView.as_view(), name='shopcart'),
-    path('carts/<int:artist_id>/', ShopCartByArtist.as_view(), name='shopcart_by_artist'),
+
+    path('carts/', ShopCartListCreateView.as_view(), name='shopcart-list-create'),
+    path('', include(router.urls)),
+
 ]
