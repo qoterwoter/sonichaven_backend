@@ -72,15 +72,3 @@ class CartItemViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)
-
-
-class CartItemRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = CartItem.objects.all()
-    serializer_class = CartItemSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_object(self):
-        obj = super().get_object()
-        if obj.cart.artist != self.request.user.artist:
-            self.permission_denied(self.request)
-        return obj

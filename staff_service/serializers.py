@@ -30,13 +30,17 @@ class ArrangementSerializer(serializers.ModelSerializer):
         model = Arrangement
         fields = ['id', 'title', 'genre', 'duration', 'cost', 'format', 'author']
 
-
-class CartItemSerializer(serializers.ModelSerializer):
+class CartItemUpdateSerializer(serializers.ModelSerializer):
     service = ServiceSerializer()
 
     class Meta:
         model = CartItem
         fields = ['id', 'quantity', 'service']
+
+class CartItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CartItem
+        fields = '__all__'
         read_only_fields = ['id']
 
     def validate(self, data):
