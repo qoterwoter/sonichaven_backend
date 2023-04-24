@@ -5,12 +5,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from .models import Service, SoundEngineer, Arrangement, ShopCart, CartItem, Genre
 from artist_card.models import Artist
-from .serializers import ServiceSerializer, SoundDesignerSerializer, ArrangementSerializer, ShopCartSerializer, CartItemSerializer, GenreSerializer
+from .serializers import ServiceSerializer, SoundDesignerSerializer, ArrangementSerializer, ShopCartSerializer, \
+    CartItemSerializer, GenreSerializer
+
 
 class GenrePagination(pagination.PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 100
+
 
 class GenreList(APIView):
     def get(self, request):
@@ -27,9 +30,11 @@ class GenreList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class ServiceAPIView(generics.ListCreateAPIView):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
+
 
 class SoundDesignerAPIView(generics.ListCreateAPIView):
     queryset = SoundEngineer.objects.all()
@@ -37,9 +42,11 @@ class SoundDesignerAPIView(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
+
 class ArrangementAPIView(generics.ListCreateAPIView):
     queryset = Arrangement.objects.all()
     serializer_class = ArrangementSerializer
+
 
 class ShopCartListCreateView(generics.ListCreateAPIView):
     queryset = ShopCart.objects.all()
@@ -53,6 +60,7 @@ class ShopCartListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         artist = Artist.objects.filter(user=self.request.user).first()
         return ShopCart.objects.filter(artist=artist)
+
 
 class CartItemViewSet(viewsets.ModelViewSet):
     queryset = CartItem.objects.all()
@@ -71,4 +79,16 @@ class CartItemViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
+
+        # Call calculate_cart_sum on the cart instance after the update
+        cart = instance.cart
+        cart.calculate_cart_sum()
+
         return Response(serializer.data)
+
+    def perform_destroy(self, instance):
+        cart = instance.cart
+        super().perform_destroy(instance)
+
+        # Call calculate_cart_sum on the cart instance after the delete
+        cart.calculate_cart_sum()
