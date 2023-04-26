@@ -9,6 +9,7 @@ class Artist(models.Model):
                              limit_choices_to={'is_artist': True})
     name = models.CharField('Имя артиста / группы', max_length=100)
     bio = models.TextField(verbose_name='Описание артиста / группы')
+    profile_image = models.CharField(max_length=255, verbose_name='Аватар')
 
     class Meta:
         ordering = ['pk']

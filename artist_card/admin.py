@@ -38,7 +38,7 @@ admin.site.register(Release, ReleaseAdmin)
 
 
 class ArtistAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'bio', 'user')
+    list_display = ('id', 'name', 'bio', 'user', 'profile_image')
     search_fields = ('name', 'bio')
 
 
