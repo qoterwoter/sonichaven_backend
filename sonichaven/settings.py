@@ -50,7 +50,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://sonichaven.std-962.ist.mospolytech.ru',]
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000',]
+CORS_ALLOW_HEADERS = [
+    'authorization',
+]
 
 INSTALLED_APPS = [
     'artist_card.apps.ArtistCardConfig',
