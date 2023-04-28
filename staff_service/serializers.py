@@ -1,12 +1,11 @@
 from rest_framework import serializers
-from .models import Service, SoundEngineer, Arrangement, ShopCart, CartItem, Genre, Order
+from .models import Service, SoundEngineer, Arrangement, ShopCart, CartItem, Genre, Order, OrderItem
 
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = ('id', 'name')
-
 
 
 class ServiceSerializer(serializers.ModelSerializer):
@@ -31,12 +30,14 @@ class ArrangementSerializer(serializers.ModelSerializer):
         model = Arrangement
         fields = ['id', 'title', 'genre', 'duration', 'cost', 'format', 'author']
 
+
 class CartItemUpdateSerializer(serializers.ModelSerializer):
     service = ServiceSerializer()
 
     class Meta:
         model = CartItem
         fields = ['id', 'quantity', 'service']
+
 
 class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -68,6 +69,7 @@ class CartItemSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('CartItem already exists')
         return super().update(instance, validated_data)
 
+
 class ShopCartSerializer(serializers.ModelSerializer):
     artist = serializers.StringRelatedField()
     items = CartItemUpdateSerializer(many=True)
@@ -75,6 +77,7 @@ class ShopCartSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShopCart
         fields = ['id', 'artist', 'sum', 'items']
+
     def create(self, validated_data):
         items_data = validated_data.pop('items')
         shop_cart = ShopCart.objects.create(**validated_data)
@@ -82,8 +85,17 @@ class ShopCartSerializer(serializers.ModelSerializer):
             CartItem.objects.create(cart=shop_cart, **item_data)
         return shop_cart
 
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    service = ServiceSerializer()
+
+    class Meta:
+        model = OrderItem
+        fields = ['id','service','quantity']
+
+
 class OrderSerializer(serializers.ModelSerializer):
-    items = CartItemUpdateSerializer(many=True)
+    items = OrderItemSerializer(many=True)
     cart_sum = serializers.DecimalField(source='cart.sum', max_digits=10, decimal_places=2, read_only=True)
 
     class Meta:

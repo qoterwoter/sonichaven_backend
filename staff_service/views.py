@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status, pagination, viewsets, generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
-from .models import Service, SoundEngineer, Arrangement, ShopCart, CartItem, Genre, Order
+from .models import Service, SoundEngineer, Arrangement, ShopCart, CartItem, Genre, Order, OrderItem
 from artist_card.models import Artist
 from .serializers import ServiceSerializer, SoundDesignerSerializer, ArrangementSerializer, ShopCartSerializer, \
     CartItemSerializer, GenreSerializer, OrderSerializer
@@ -126,8 +126,19 @@ def cart_order_list(request):
 
         # Create a new order for the cart and add the cart's items to the order
         order = Order.objects.create(cart=cart)
-        order.items.set(cart.items.all())
 
+        cart_items_to_delete = CartItem.objects.filter(cart__artist=artist)
+        order_items_to_create = []
+        for cart_item in cart_items_to_delete:
+            order_items_to_create.append(
+                OrderItem(
+                    order=order,
+                    quantity=cart_item.quantity,
+                    service=cart_item.service
+                )
+            )
+        OrderItem.objects.bulk_create(order_items_to_create)
+        cart_items_to_delete.delete()
         # Remove the items from the cart and recalculate the cart's sum
         cart.items.set([])
         cart.calculate_cart_sum()
