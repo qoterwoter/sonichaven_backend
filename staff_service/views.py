@@ -106,14 +106,14 @@ def cart_order_list(request):
     if request.method == 'GET':
         # Retrieve the current cart for the authenticated user
         artist = request.user.artist_set.first()
-        current_cart = ShopCart.objects.filter(artist=artist).first()
+        cart = artist.carts.first()
 
         # If there is no current cart, return an empty response
-        if not current_cart:
+        if not cart:
             return Response({'message': 'No current cart'}, status=status.HTTP_204_NO_CONTENT)
 
         # Retrieve the orders for the current cart
-        orders = current_cart.orders.all()
+        orders = Order.objects.filter(cart=cart)
 
         # Serialize the orders and return the response
         serializer = OrderSerializer(orders, many=True)
@@ -147,6 +147,6 @@ def cart_order_list(request):
         # Remove the items from the cart and recalculate the cart's sum
         cart.items.set([])
         cart.calculate_cart_sum()
-
+        order.calculate_cart_sum()
         # Return the response
         return Response({'status': 'ok', 'message': 'Order created'})
