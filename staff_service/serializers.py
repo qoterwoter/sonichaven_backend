@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Service, SoundEngineer, Arrangement, ShopCart, CartItem, Genre
+from .models import Service, SoundEngineer, Arrangement, ShopCart, CartItem, Genre, Order
+
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
@@ -80,3 +81,11 @@ class ShopCartSerializer(serializers.ModelSerializer):
         for item_data in items_data:
             CartItem.objects.create(cart=shop_cart, **item_data)
         return shop_cart
+
+class OrderSerializer(serializers.ModelSerializer):
+    items = CartItemUpdateSerializer(many=True)
+    cart_sum = serializers.DecimalField(source='cart.sum', max_digits=10, decimal_places=2, read_only=True)
+
+    class Meta:
+        model = Order
+        fields = ['id', 'created_at', 'cart_sum', 'items', ]

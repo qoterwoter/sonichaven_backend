@@ -32,3 +32,4 @@ class ReleasesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Release
         fields = ['title', 'artist_name', 'image', 'release_date']
+

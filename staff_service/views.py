@@ -3,10 +3,12 @@ from rest_framework.response import Response
 from rest_framework import status, pagination, viewsets, generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
-from .models import Service, SoundEngineer, Arrangement, ShopCart, CartItem, Genre
+from .models import Service, SoundEngineer, Arrangement, ShopCart, CartItem, Genre, Order
 from artist_card.models import Artist
 from .serializers import ServiceSerializer, SoundDesignerSerializer, ArrangementSerializer, ShopCartSerializer, \
-    CartItemSerializer, GenreSerializer
+    CartItemSerializer, GenreSerializer, OrderSerializer
+from django.shortcuts import get_object_or_404
+from rest_framework.decorators import api_view, permission_classes
 
 
 class GenrePagination(pagination.PageNumberPagination):
@@ -97,3 +99,38 @@ class CartItemViewSet(viewsets.ModelViewSet):
 
         # Call calculate_cart_sum on the cart instance after the delete
         cart.calculate_cart_sum()
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def cart_order_list(request):
+    if request.method == 'GET':
+        # Retrieve the current cart for the authenticated user
+        artist = request.user.artist_set.first()
+        current_cart = ShopCart.objects.filter(artist=artist).first()
+
+        # If there is no current cart, return an empty response
+        if not current_cart:
+            return Response({'message': 'No current cart'}, status=status.HTTP_204_NO_CONTENT)
+
+        # Retrieve the orders for the current cart
+        orders = current_cart.orders.all()
+
+        # Serialize the orders and return the response
+        serializer = OrderSerializer(orders, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        # Retrieve the current cart for the authenticated user
+        artist = request.user.artist_set.first()
+        cart = artist.carts.first()
+
+        # Create a new order for the cart and add the cart's items to the order
+        order = Order.objects.create(cart=cart)
+        order.items.set(cart.items.all())
+
+        # Remove the items from the cart and recalculate the cart's sum
+        cart.items.set([])
+        cart.calculate_cart_sum()
+
+        # Return the response
+        return Response({'status': 'ok', 'message': 'Order created'})

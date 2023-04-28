@@ -1,6 +1,6 @@
 from django.urls import path, include
 from .views import GenreList, ServiceAPIView, SoundDesignerAPIView, ArrangementAPIView, ShopCartListCreateView, \
-CartItemViewSet
+    CartItemViewSet, cart_order_list
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -15,5 +15,5 @@ urlpatterns = [
 
     path('carts/', ShopCartListCreateView.as_view(), name='shopcart-list-create'),
     path('', include(router.urls)),
-
+    path('cart_order_list/', cart_order_list, name='make_order'),
 ]

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Arrangement, SoundEngineer, Service, ShopCart, CartItem, Genre, Contract, Manager
+from .models import Arrangement, SoundEngineer, Service, ShopCart, CartItem, Genre, Contract, Manager, Order
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 from django.utils.html import format_html_join
@@ -99,3 +99,10 @@ class ContractAdmin(admin.ModelAdmin):
     date_hierarchy = 'signing_date'
 
 admin.site.register(Contract, ContractAdmin)
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'cart', 'created_at')
+    list_filter = ('created_at',)
+    search_fields = ('cart__artist__name',)
+
+admin.site.register(Order, OrderAdmin)
