@@ -125,9 +125,14 @@ def cart_order_list(request):
         cart = artist.carts.first()
 
         # Create a new order for the cart and add the cart's items to the order
-        order = Order.objects.create(cart=cart)
 
         cart_items_to_delete = CartItem.objects.filter(cart__artist=artist)
+
+        if not cart_items_to_delete.exists():
+            return Response({'status': 'error', 'message': 'Cart is empty'})
+
+        order = Order.objects.create(cart=cart)
+
         order_items_to_create = []
         for cart_item in cart_items_to_delete:
             order_items_to_create.append(

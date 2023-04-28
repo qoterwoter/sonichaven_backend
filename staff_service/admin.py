@@ -125,7 +125,13 @@ class OrderItemInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'cart', 'created_at')
+    list_display = ('id', 'get_artist_name', 'created_at')
+
+    def get_artist_name(self, obj):
+        return obj.cart.artist.name
+
+    get_artist_name.short_description = 'Исполнитель'
+
     inlines = [OrderItemInline, ]
     list_filter = ('created_at',)
     search_fields = ('cart__artist__name',)
