@@ -67,7 +67,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://sonichaven.std-962.ist.mospolytech.ru',]
 
 ROOT_URLCONF = 'sonichaven.urls'
 
