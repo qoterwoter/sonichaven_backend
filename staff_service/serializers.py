@@ -96,8 +96,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
-    cart_sum = serializers.DecimalField(source='cart.sum', max_digits=10, decimal_places=2, read_only=True)
 
     class Meta:
         model = Order
-        fields = ['id', 'created_at', 'cart_sum', 'items', ]
+        fields = ['id', 'created_at', 'sum', 'items', ]
