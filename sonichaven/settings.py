@@ -51,9 +51,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000',]
-CORS_ALLOW_HEADERS = [
-    'authorization',
-]
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 INSTALLED_APPS = [
     'artist_card.apps.ArtistCardConfig',
