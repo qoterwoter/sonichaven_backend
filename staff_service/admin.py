@@ -125,7 +125,7 @@ class OrderItemInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'get_artist_name', 'created_at')
+    list_display = ('id', 'get_artist_name', 'sum', 'created_at')
 
     def get_artist_name(self, obj):
         return obj.cart.artist.name
@@ -136,6 +136,12 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ('created_at',)
     search_fields = ('cart__artist__name',)
 
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+
+        # calculate the sum
+        obj.sum = sum(item.service.cost * item.quantity for item in obj.items.all())
+        obj.save()
 
 admin.site.register(Order, OrderAdmin)
 
