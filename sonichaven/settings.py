@@ -56,7 +56,9 @@ CORS_ORIGIN_WHITELIST = [
     'http://sonichaven.std-962.ist.mospolytech.ru',
 ]
 CORS_URLS_REGEX = r'^/api/.*$'
-
+CORS_ALLOW_HEADERS = (
+    'authorization',  # Allow the Authorization header
+)
 
 INSTALLED_APPS = [
     'artist_card.apps.ArtistCardConfig',
