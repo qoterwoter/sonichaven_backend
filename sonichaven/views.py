@@ -7,8 +7,10 @@ from django.shortcuts import get_object_or_404
 from artist_card.models import Artist
 from artist_card.serializers import ArtistSerializer
 from staff_service.models import ShopCart
-from staff_service.serializers import ShopCartSerializer
+from rest_framework import viewsets, permissions
+from .models import User
 from .serializers import UserSerializer
+from django.contrib.auth.hashers import make_password
 
 
 class RegistrationView(APIView):
@@ -50,4 +52,30 @@ class LoginView(APIView):
         user_data['cart_id'] = cart.id if cart else None
 
         return Response(user_data, status=status.HTTP_200_OK)
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_update(self, serializer):
+        # check if username or password is being updated
+        if 'username' in serializer.validated_data:
+            # set new username
+            serializer.instance.username = serializer.validated_data['username']
+        if 'password' in serializer.validated_data:
+            # set new password (hashed)
+            serializer.instance.password = make_password(serializer.validated_data['password'])
+        # save changes
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        instance.delete()
+
+    def update(self, request, *args, **kwargs):
+        # check if user is updating their own profile
+        if request.user.id != int(kwargs['pk']):
+            return Response({'error': 'Not authorized to update this user.'}, status=status.HTTP_401_UNAUTHORIZED)
+        return super().update(request, *args, **kwargs)
 

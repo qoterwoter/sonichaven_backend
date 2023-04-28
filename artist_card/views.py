@@ -6,13 +6,48 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import Artist
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.views import APIView
 
 
-class ArtistList(generics.ListCreateAPIView):
-    queryset = Artist.objects.all()
-    serializer_class = ArtistSerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+class ArtistList(APIView):
+    def get(self, request):
+        artists = Artist.objects.all()
+        serializer = ArtistSerializer(artists, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = ArtistSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ArtistDetail(APIView):
+    def get_object(self, pk):
+        try:
+            artist = Artist.objects.get(pk=pk)
+            return artist
+        except Artist.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request, pk):
+        artist = self.get_object(pk)
+        serializer = ArtistSerializer(artist)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        artist = self.get_object(pk)
+        serializer = ArtistSerializer(artist, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        artist = self.get_object(pk)
+        artist.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class ReleaseAPIView(generics.RetrieveAPIView):
@@ -28,6 +63,7 @@ class ReleaseAPIView(generics.RetrieveAPIView):
 class ReleasesAPIView(generics.ListCreateAPIView):
     queryset = Release.objects.all()
     serializer_class = ReleasesSerializer
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
