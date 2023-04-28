@@ -61,6 +61,11 @@ class ShopCartListCreateView(generics.ListCreateAPIView):
         artist = Artist.objects.filter(user=self.request.user).first()
         return ShopCart.objects.filter(artist=artist)
 
+    def options(self, request, *args, **kwargs):
+        response = super().options(request, *args, **kwargs)
+        response['Access-Control-Allow-Headers'] = 'Authorization'
+        return response
+
 
 class CartItemViewSet(viewsets.ModelViewSet):
     queryset = CartItem.objects.all()
