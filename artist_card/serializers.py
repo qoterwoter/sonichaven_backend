@@ -12,6 +12,7 @@ class ArtistSerializer(serializers.ModelSerializer):
             'profile_image': {'required': False},
         }
 
+
 class SongSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
@@ -23,7 +24,7 @@ class ReleaseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Release
-        fields = ['title', 'artist', 'image', 'release_date', 'songs']
+        fields = ['title', 'artist', 'image', 'release_date', 'type', 'songs']
 
 
 class ReleasesSerializer(serializers.ModelSerializer):
@@ -32,4 +33,3 @@ class ReleasesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Release
         fields = ['title', 'artist_name', 'image', 'release_date']
-

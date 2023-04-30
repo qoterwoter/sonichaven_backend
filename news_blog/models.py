@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 
+
 class News(models.Model):
     title = models.CharField('Заголовок', max_length=100)
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
@@ -14,6 +15,7 @@ class News(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class NewsArticle(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='articles', verbose_name='Новость')

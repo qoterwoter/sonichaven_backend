@@ -50,14 +50,14 @@ class ArtistDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class ReleaseAPIView(generics.RetrieveAPIView):
+class ReleaseListByArtist(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+    serializer_class = ReleaseSerializer
 
-    def get(self, request, artist_id):
-        releases = Release.objects.filter(artist=artist_id)
-        serializer = ReleaseSerializer(releases, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def get_queryset(self):
+        artist_id = self.kwargs['artist_id']
+        return Release.objects.filter(artist_id=artist_id)
 
 
 class ReleasesAPIView(generics.ListCreateAPIView):
