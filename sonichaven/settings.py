@@ -67,10 +67,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://sonichaven.std-962.ist.mospolytech.ru',]
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://sonichaven.std-962.ist.mospolytech.ru',
-]
+
 CORS_ALLOW_METHODS = [
     "DELETE",
     "GET",
