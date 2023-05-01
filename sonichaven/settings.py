@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-vc4u68-3da9onlztg(jd0q!u2&dhy)eamir5%s)eh&%$9+^hb1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','http://sonichaven-backend.std-962.ist.mospolytech.ru/', 'sonichaven-backend.std-962.ist.mospolytech.ru',
-                 'http://sonichaven.std-962.ist.mospolytech.ru/', 'sonichaven.std-962.ist.mospolytech.ru']
+ALLOWED_HOSTS = ['localhost','http://sonichaven-backend.std-962.ist.mospolytech.ru/', 'sonichaven-backend.std-962.ist.mospolytech.ru',]
 
 AUTH_USER_MODEL = 'sonichaven.User'
 
@@ -39,26 +38,8 @@ REST_FRAMEWORK = {
     ]
 }
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-]
-
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://sonichaven.std-962.ist.mospolytech.ru/',]
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://sonichaven.std-962.ist.mospolytech.ru/',
-]
-
-
-
 INSTALLED_APPS = [
+    'corsheaders',
     'artist_card.apps.ArtistCardConfig',
     'staff_service.apps.StaffServiceConfig',
     'news_blog',
@@ -72,7 +53,42 @@ INSTALLED_APPS = [
     'import_export',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders'
+]
+
+MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://sonichaven.std-962.ist.mospolytech.ru',]
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'http://sonichaven.std-962.ist.mospolytech.ru',
+]
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
 ]
 
 ROOT_URLCONF = 'sonichaven.urls'
