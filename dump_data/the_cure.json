@@ -1,0 +1,146 @@
+[
+
+  {
+    "model": "artist_card.release",
+    "pk": 4,
+    "fields": {
+      "title": "Wish",
+      "artist": 3,
+      "image": "https://example.com/wish.jpg",
+      "release_date": "1992-04-21",
+      "type": "album"
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 36,
+    "fields": {
+      "title": "Open",
+      "artist": 3,
+      "release": 4,
+      "duration": "0:04:15",
+      "track_number": 1
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 37,
+    "fields": {
+      "title": "High",
+      "artist": 3,
+      "release": 4,
+      "duration": "0:03:37",
+      "track_number": 2
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 38,
+    "fields": {
+      "title": "Apart",
+      "artist": 3,
+      "release": 4,
+      "duration": "0:06:38",
+      "track_number": 3
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 39,
+    "fields": {
+      "title": "From the Edge of the Deep Green Sea",
+      "artist": 3,
+      "release": 4,
+      "duration": "0:07:44",
+      "track_number": 4
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 40,
+    "fields": {
+      "title": "Wendy Time",
+      "artist": 3,
+      "release": 4,
+      "duration": "0:05:13",
+      "track_number": 5
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 41,
+    "fields": {
+      "title": "Doing the Unstuck",
+      "artist": 3,
+      "release": 4,
+      "duration": "0:04:24",
+      "track_number": 6
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 42,
+    "fields": {
+      "title": "Friday I'm in Love",
+      "artist": 3,
+      "release": 4,
+      "duration": "0:03:36",
+      "track_number": 7
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 43,
+    "fields": {
+      "title": "Trust",
+      "artist": 3,
+      "release": 4,
+      "duration": "0:05:33",
+      "track_number": 8
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 44,
+    "fields": {
+      "title": "A Letter to Elise",
+      "artist": 3,
+      "release": 4,
+      "duration": "0:04:19",
+      "track_number": 9
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 45,
+    "fields": {
+      "title": "Cut",
+      "artist": 3,
+      "release": 4,
+      "duration": "0:05:55",
+      "track_number": 10
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 46,
+    "fields": {
+      "title": "To Wish Impossible Things",
+      "artist": 3,
+      "release": 4,
+      "duration": "0:04:43",
+      "track_number": 11
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 47,
+    "fields": {
+      "title": "End",
+      "artist": 3,
+      "release": 4,
+      "duration": "0:06:46",
+      "track_number": 12
+    }
+  }
+]
