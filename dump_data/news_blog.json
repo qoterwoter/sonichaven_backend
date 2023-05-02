@@ -1,0 +1,382 @@
+[
+  {
+    "model": "news_blog.news",
+    "pk": 1,
+    "fields": {
+      "title": "Новый альбом группы Metallica",
+      "created_at": "2023-05-01T12:00:00Z",
+      "updated_at": "2023-05-01T12:00:00Z",
+      "author": 5
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 1,
+    "fields": {
+      "news": 1,
+      "content": "Легендарная группа Metallica выпустила новый альбом 'Hardwired... to Self-Destruct'. Этот альбом стал первым за восемь лет и уже получил высокие оценки критиков. В альбом вошли 12 песен, включая 'Moth Into Flame' и 'Atlas, Rise!'",
+      "image": "https://example.com/metallica-album-cover.jpg",
+      "caption": "Обложка альбома 'Hardwired... to Self-Destruct'"
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 2,
+    "fields": {
+      "news": 1,
+      "content": "Metallica также объявила о грядущем туре, который начнется в следующем месяце. Группа выступит в США, Европе и Азии, и уже продала более 1 миллиона билетов.",
+      "image": "https://example.com/metallica-concert.jpg",
+      "caption": "Metallica на концерте"
+    }
+  },
+  {
+    "model": "news_blog.news",
+    "pk": 2,
+    "fields": {
+      "title": "Открытие новой студии звукозаписи в Лос-Анджелесе",
+      "created_at": "2023-04-28T09:00:00Z",
+      "updated_at": "2023-04-28T09:00:00Z",
+      "author": 5
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 3,
+    "fields": {
+      "news": 2,
+      "content": "В Лос-Анджелесе открылась новая студия звукозаписи, которая оборудована самым современным оборудованием и технологиями. Студия предлагает услуги записи, сведения и мастеринга для музыкантов всех жанров.",
+      "image": "https://example.com/recording-studio.jpg",
+      "caption": "Новая студия звукозаписи в Лос-Анджелесе"
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 4,
+    "fields": {
+      "news": 2,
+      "content": "Известные музыканты уже начали записываться в новой студии звукозаписи, включая Beyonce, Kendrick Lamar и Coldplay. Студия также планирует проводить мастер-классы и семинары для музыкантов.",
+      "image": "https://example.com/recording-studio-musicians.jpg",
+      "caption": "Музыканты записываются в новой студии звукозаписи"
+    }
+  },
+  {
+    "model": "news_blog.news",
+    "pk": 3,
+    "fields": {
+      "title": "BTS объявили о туре по Северной Америке",
+      "created_at": "2023-04-25T15:30:00Z",
+      "updated_at": "2023-04-25T15:30:00Z",
+      "author": 5
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 5,
+    "fields": {
+      "news": 3,
+      "content": "Популярная корейская группа BTS объявила о грядущем туре по Северной Америке. Тур начнется в следующем месяце и включит концерты в Нью-Йорке, Лос-Анджелесе, Чикаго и других городах.",
+      "image": "https://example.com/bts-concert.jpg",
+      "caption": "BTS на концерте"
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 6,
+    "fields": {
+      "news": 3,
+      "content": "Билеты на концерты BTS раскупаются за несколько минут после начала продаж. Фанаты группы выражают свой восторг и ждут встречи с их кумирами.",
+      "image": "https://example.com/bts-fans.jpg",
+      "caption": "Фанаты BTS"
+    }
+  },
+  {
+    "model": "news_blog.news",
+    "pk": 4,
+    "fields": {
+      "title": "Новый клип группы Imagine Dragons",
+      "created_at": "2023-04-20T11:00:00Z",
+      "updated_at": "2023-04-20T11:00:00Z",
+      "author": 5
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 7,
+    "fields": {
+      "news": 4,
+      "content": "Группа Imagine Dragons выпустила новый клип на песню 'Believer'. Клип был снят в черно-белом стиле и получил высокие оценки критиков за свою энергию и динамику.",
+      "image": "https://example.com/imagine-dragons-music-video.jpg",
+      "caption": "Кадр из клипа 'Believer'"
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 8,
+    "fields": {
+      "news": 4,
+      "content": "Клип Imagine Dragons набирает миллионы просмотров на YouTube и становится одним из самых популярных видео в этом месяце.",
+      "image": "https://example.com/imagine-dragons-youtube.jpg",
+      "caption": "Клип Imagine Dragons на YouTube"
+    }
+  },
+  {
+    "model": "news_blog.news",
+    "pk": 5,
+    "fields": {
+      "title": "Новый альбом группы Arctic Monkeys",
+      "created_at": "2023-04-15T14:00:00Z",
+      "updated_at": "2023-04-15T14:00:00Z",
+      "author": 5
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 9,
+    "fields": {
+      "news": 5,
+      "content": "Британская группа Arctic Monkeys выпустила новый альбом 'Tranquility Base Hotel & Casino'. Альбом получил высокие оценки критиков за свою оригинальность и экспериментальный звук.",
+      "image": "https://example.com/arctic-monkeys-album-cover.jpg",
+      "caption": "Обложка альбома 'Tranquility Base Hotel & Casino'"
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 10,
+    "fields": {
+      "news": 5,
+      "content": "Критики назвали новый альбом Arctic Monkeys одним из лучших в их карьере, а поклонники группы выражают свой восторг и ждут новых концертов.",
+      "image": "https://example.com/arctic-monkeys-concert.jpg",
+      "caption": "Arctic Monkeys на концерте"
+    }
+  },
+  {
+    "model": "news_blog.news",
+    "pk": 6,
+    "fields": {
+      "title": "Новый сингл группы Twenty One Pilots",
+      "created_at": "2023-04-10T16:30:00Z",
+      "updated_at": "2023-04-10T16:30:00Z",
+      "author": 5
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 11,
+    "fields": {
+      "news": 6,
+      "content": "Американская группа Twenty One Pilots выпустила новый сингл 'Jumpsuit'. Эта песня стала первым релизом группы после их паузы в два года.",
+      "image": "https://example.com/twenty-one-pilots-single.jpg",
+      "caption": "Обложка сингла 'Jumpsuit'"
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 12,
+    "fields": {
+      "news": 6,
+      "content": "Поклонники группы ждут новый альбом Twenty One Pilots с нетерпением и надеются на скорое объявление о его релизе.",
+      "image": "https://example.com/twenty-one-pilots-fans.jpg",
+      "caption": "Фанаты Twenty One Pilots"
+    }
+  },
+  {
+    "model": "news_blog.news",
+    "pk": 7,
+    "fields": {
+      "title": "Новый альбом группы Muse",
+      "created_at": "2023-04-05T10:00:00Z",
+      "updated_at": "2023-04-05T10:00:00Z",
+      "author": 5
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 13,
+    "fields": {
+      "news": 7,
+      "content": "Британская группа Muse выпустила новый альбом 'Simulation Theory'. Альбом получил высокие оценки критиков за свой энергичный звук и футуристический стиль.",
+      "image": "https://example.com/muse-album-cover.jpg",
+      "caption": "Обложка альбома 'Simulation Theory'"
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 14,
+    "fields": {
+      "news": 7,
+      "content": "Критики назвали новый альбом Muse одним из самых ожидаемых в этом году, а поклонники группы выражают свой восторг и ждут новых концертов.",
+      "image": "https://example.com/muse-concert.jpg",
+      "caption": "Muse на концерте"
+    }
+  },
+  {
+    "model": "news_blog.news",
+    "pk": 8,
+    "fields": {
+      "title": "Новый клип группы Panic! At The Disco",
+      "created_at": "2023-04-01T13:00:00Z",
+      "updated_at": "2023-04-01T13:00:00Z",
+      "author": 5
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 15,
+    "fields": {
+      "news": 8,
+      "content": "Американская группа Panic! At The Disco выпустила новый клип на песню 'High Hopes'. Клип получил высокие оценки критиков за свою энергию и оптимизм.",
+      "image": "https://example.com/panic-at-the-disco-music-video.jpg",
+      "caption": "Кадр из клипа 'High Hopes'"
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 16,
+    "fields": {
+      "news": 8,
+      "content": "Клип Panic! At The Disco стал вирусным в социальных сетях и набрал миллионы просмотров за несколько дней.",
+      "image": "https://example.com/panic-at-the-disco-social-media.jpg",
+      "caption": "Клип Panic! At The Disco в социальных сетях"
+    }
+  },
+  {
+    "model": "news_blog.news",
+    "pk": 9,
+    "fields": {
+      "title": "Новый альбом группы Radiohead",
+      "created_at": "2023-03-27T08:30:00Z",
+      "updated_at": "2023-03-27T08:30:00Z",
+      "author": 5
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 17,
+    "fields": {
+      "news": 9,
+      "content": "Британская группа Radiohead выпустила новый альбом 'A Moon Shaped Pool'. Альбом получил высокие оценки критиков за свою меланхоличность и глубину.",
+      "image": "https://example.com/radiohead-album-cover.jpg",
+      "caption": "Обложка альбома 'A Moon Shaped Pool'"
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 18,
+    "fields": {
+      "news": 9,
+      "content": "Критики назвали новый альбом Radiohead одним из лучших в их карьере, а поклонники группы выражают свой восторг и ждут новых концертов.",
+      "image": "https://example.com/radiohead-concert.jpg",
+      "caption": "Radiohead на концерте"
+    }
+  },
+  {
+    "model": "news_blog.news",
+    "pk": 10,
+    "fields": {
+      "title": "Новый сингл группы The 1975",
+      "created_at": "2023-03-22T12:30:00Z",
+      "updated_at": "2023-03-22T12:30:00Z",
+      "author": 5
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 19,
+    "fields": {
+      "news": 10,
+      "content": "Британская группа The 1975 выпустила новый сингл 'Love It If We Made It'. Эта песня стала первым релизом группы после их паузы в два года.",
+      "image": "https://example.com/the-1975-single.jpg",
+      "caption": "Обложка сингла 'Love It If We Made It'"
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 20,
+    "fields": {
+      "news": 10,
+      "content": "Поклонники группы ждут новый альбом The 1975 с нетерпением и надеются на скорое объявление о его релизе.",
+      "image": "https://example.com/the-1975-fans.jpg",
+      "caption": "Фанаты The 1975"
+    }
+  },
+  {
+    "model": "news_blog.news",
+    "pk": 11,
+    "fields": {
+      "title": "Музыкальная студия завершила разработку Backend части",
+      "created_at": "2023-05-02T12:00:00Z",
+      "updated_at": "2023-05-02T12:00:00Z",
+      "author": 5
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 31,
+    "fields": {
+      "news": 11,
+      "content": "Музыкальная студия 'SoundLab' завершила разработку Backend части своего сайта. Это позволит клиентам студии более удобно заказывать услуги и получать информацию о работе студии. Кроме того, студия закупила новое оборудование, что позволит еще больше улучшить качество звука и услуг, предоставляемых клиентам. В ближайшее время студия планирует завершить разработку Frontend части сайта, чтобы обеспечить еще более удобный и интуитивно понятный интерфейс для клиентов.",
+      "image": null,
+      "caption": ""
+    }
+  },
+  {
+    "model": "news_blog.news",
+    "pk": 12,
+    "fields": {
+      "title": "Музыкальная студия завершила разработку Frontend части",
+      "created_at": "2023-06-02T12:00:00Z",
+      "updated_at": "2023-06-02T12:00:00Z",
+      "author": 5
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 32,
+    "fields": {
+      "news": 12,
+      "content": "Музыкальная студия 'SoundLab' завершила разработку Frontend части своего сайта. Теперь клиенты студии могут более удобно заказывать услуги и получать информацию о работе студии. Новый интерфейс сайта стал более интуитивно понятным и удобным в использовании. Кроме того, студия подписала контракты с новыми артистами, такими как Imagine Dragons, The Cure и Adele, что позволит еще больше расширить свой репертуар и предложить клиентам еще больше возможностей.",
+      "image": null,
+      "caption": ""
+    }
+  },
+  {
+    "model": "news_blog.news",
+    "pk": 13,
+    "fields": {
+      "title": "Музыкальная студия 'SoundLab' закупает новое оборудование",
+      "created_at": "2023-07-02T12:00:00Z",
+      "updated_at": "2023-07-02T12:00:00Z",
+      "author": 5
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 33,
+    "fields": {
+      "news": 13,
+      "content": "Музыкальная студия 'SoundLab' закупает новое оборудование для улучшения качества звука и расширения возможностей. Среди новых приобретений - новые микрофоны, синтезаторы и звуковые платы. Это позволит студии еще больше улучшить качество звучания записей и предложить клиентам еще больше возможностей для творчества.",
+      "image": null,
+      "caption": ""
+    }
+  },
+  {
+    "model": "news_blog.news",
+    "pk": 14,
+    "fields": {
+      "title": "Музыкальная студия 'SoundLab' подписывает новых артистов на свой лейбл",
+      "created_at": "2023-08-02T12:00:00Z",
+      "updated_at": "2023-08-02T12:00:00Z",
+      "author": 5
+    }
+  },
+  {
+    "model": "news_blog.newsarticle",
+    "pk": 34,
+    "fields": {
+      "news": 14,
+      "content": "Музыкальная студия 'SoundLab' подписывает новых артистов на свой лейбл. Среди новых приобретений - Imagine Dragons, The Cure и Adele. Эти артисты уже начали работу над новыми проектами, которые будут выпущены на лейбле 'SoundLab'. Это позволит студии расширить свой репертуар и предложить клиентам еще больше возможностей для творчества.",
+      "image": null,
+      "caption": ""
+    }
+  }
+]
