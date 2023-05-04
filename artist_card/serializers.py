@@ -19,10 +19,18 @@ class SongSerializer(serializers.ModelSerializer):
         fields = ['track_number', 'id', 'title', 'artist', 'duration']
 
 
+class ReleaseGetSerializer(serializers.ModelSerializer):
+    songs = SongSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Release
+        fields = ['id', 'title', 'artist', 'image', 'release_date', 'type', 'songs']
+
+
 class ReleaseCRUDSerializer(serializers.ModelSerializer):
     class Meta:
         model = Release
-        fields = ["id",'title', 'artist', 'image', 'release_date', 'type']
+        fields = ["id", 'title', 'artist', 'image', 'release_date', 'type']
 
 
 class ReleaseSerializer(serializers.ModelSerializer):
@@ -30,7 +38,7 @@ class ReleaseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Release
-        fields = ["id",'title', 'artist', 'image', 'release_date', 'type', 'songs']
+        fields = ["id", 'title', 'artist', 'image', 'release_date', 'type', 'songs']
 
 
 class ReleasesSerializer(serializers.ModelSerializer):

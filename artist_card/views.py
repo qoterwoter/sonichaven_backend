@@ -1,6 +1,6 @@
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import generics, status
-from .serializers import ArtistSerializer, ReleaseSerializer, ReleaseCRUDSerializer
+from .serializers import ArtistSerializer, ReleaseGetSerializer, ReleaseCRUDSerializer
 from rest_framework.permissions import IsAuthenticated
 from .models import Artist
 from rest_framework.decorators import api_view, permission_classes
@@ -68,8 +68,13 @@ class ReleaseViewSet(viewsets.ModelViewSet):
     queryset = Release.objects.all()
     serializer_class = ReleaseCRUDSerializer
 
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return ReleaseGetSerializer
+        return ReleaseCRUDSerializer
+
     def create(self, request):
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
@@ -81,10 +86,10 @@ class ReleaseViewSet(viewsets.ModelViewSet):
         if title is not None:
             release.title = title
             release.save()
-            serializer = self.serializer_class(release)
+            serializer = self.get_serializer(release)
             return Response(serializer.data, status=200)
         else:
-            serializer = self.serializer_class(release, data=request.data)
+            serializer = self.get_serializer(release, data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=200)
@@ -92,7 +97,7 @@ class ReleaseViewSet(viewsets.ModelViewSet):
 
     def retrieve(self, request, pk=None):
         release = Release.objects.get(pk=pk)
-        serializer = self.serializer_class(release)
+        serializer = self.get_serializer(release)
         return Response(serializer.data, status=200)
 
     def destroy(self, request, pk=None):
