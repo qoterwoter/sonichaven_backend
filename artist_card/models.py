@@ -2,6 +2,8 @@ from django.db import models
 from datetime import timedelta
 from django.db.models import Count
 from django.conf import settings
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 
 
 class Artist(models.Model):
@@ -46,6 +48,12 @@ class Release(models.Model):
         return self.title
 
 
+def recalculate_track_numbers(release):
+    songs = release.songs.all().order_by('track_number')
+    for i, song in enumerate(songs):
+        song.track_number = i + 1
+        song.save()
+
 class Song(models.Model):
     title = models.CharField('Название песни', max_length=100)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE, verbose_name='Исполнитель')
@@ -66,7 +74,12 @@ class Song(models.Model):
     def save(self, *args, **kwargs):
         if not self.track_number:
             next_track_number = Song.objects.filter(release=self.release).aggregate(
-                next_track_number=Count('id')
+                next_track_number=models.Count('id')
             )['next_track_number'] + 1
             self.track_number = next_track_number
         super().save(*args, **kwargs)
+        recalculate_track_numbers(self.release)
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+        recalculate_track_numbers(self.release)

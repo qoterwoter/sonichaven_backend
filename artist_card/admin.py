@@ -6,7 +6,7 @@ from django.utils.html import format_html_join
 
 class SongAdmin(admin.ModelAdmin):
     form = SongForm
-    list_display = ('title', 'id', 'artist', 'release', 'duration')
+    list_display = ('title', 'track_number', 'id', 'artist', 'release', 'duration')
     list_filter = ['artist', 'release']
     search_fields = ('title', 'artist__name', 'release__title')
 
@@ -17,7 +17,7 @@ admin.site.register(Song, SongAdmin)
 class SongInline(admin.TabularInline):
     model = Song
     extra = 1
-    fields = ('title', 'duration', 'artist')
+    fields = ('track_number', 'title', 'duration', 'artist')
 
 
 class ReleaseAdmin(admin.ModelAdmin):

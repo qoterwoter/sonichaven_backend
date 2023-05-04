@@ -65,6 +65,43 @@ class ReleasesAPIView(generics.ListCreateAPIView):
     serializer_class = ReleasesSerializer
 
 
+from rest_framework import viewsets
+from rest_framework.response import Response
+from .models import Song
+from .serializers import SongSerializer
+
+
+class SongViewSet(viewsets.ModelViewSet):
+    queryset = Song.objects.all()
+    serializer_class = SongSerializer
+
+    def create(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+    def update(self, request, pk=None):
+        song = Song.objects.get(pk=pk)
+        serializer = self.serializer_class(song, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)
+
+    def retrieve(self, request, pk=None):
+        song = Song.objects.get(pk=pk)
+        serializer = self.serializer_class(song)
+        return Response(serializer.data, status=200)
+
+    def destroy(self, request, pk=None):
+        song = Song.objects.get(pk=pk)
+        song.delete()
+        return Response(status=204)
+
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def artist_info(request):
