@@ -54,6 +54,7 @@ def recalculate_track_numbers(release):
         song.track_number = i + 1
         song.save()
 
+
 class Song(models.Model):
     title = models.CharField('Название песни', max_length=100)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE, verbose_name='Исполнитель')

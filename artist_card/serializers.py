@@ -19,6 +19,12 @@ class SongSerializer(serializers.ModelSerializer):
         fields = ['track_number', 'id', 'title', 'artist', 'duration']
 
 
+class ReleaseCRUDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Release
+        fields = ["id",'title', 'artist', 'image', 'release_date', 'type']
+
+
 class ReleaseSerializer(serializers.ModelSerializer):
     songs = SongSerializer(many=True)
 

@@ -1,12 +1,16 @@
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import generics, status
-from .models import Release, Artist
-from .serializers import ArtistSerializer, ReleaseSerializer, ReleasesSerializer
+from .serializers import ArtistSerializer, ReleaseSerializer, ReleaseCRUDSerializer
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 from .models import Artist
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
+from .models import Song
+from .serializers import SongSerializer
+from rest_framework import viewsets
+from rest_framework.response import Response
+from .models import Release
+from .serializers import ReleaseSerializer
 
 
 class ArtistList(APIView):
@@ -60,15 +64,41 @@ class ReleaseListByArtist(generics.ListAPIView):
         return Release.objects.filter(artist_id=artist_id)
 
 
-class ReleasesAPIView(generics.ListCreateAPIView):
+class ReleaseViewSet(viewsets.ModelViewSet):
     queryset = Release.objects.all()
-    serializer_class = ReleasesSerializer
+    serializer_class = ReleaseCRUDSerializer
 
+    def create(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
-from rest_framework import viewsets
-from rest_framework.response import Response
-from .models import Song
-from .serializers import SongSerializer
+    def update(self, request, pk=None):
+        release = Release.objects.get(pk=pk)
+        title = request.data.get('title', None)
+        if title is not None:
+            release.title = title
+            release.save()
+            serializer = self.serializer_class(release)
+            return Response(serializer.data, status=200)
+        else:
+            serializer = self.serializer_class(release, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=200)
+            return Response(serializer.errors, status=400)
+
+    def retrieve(self, request, pk=None):
+        release = Release.objects.get(pk=pk)
+        serializer = self.serializer_class(release)
+        return Response(serializer.data, status=200)
+
+    def destroy(self, request, pk=None):
+        release = Release.objects.get(pk=pk)
+        release.delete()
+        return Response(status=204)
 
 
 class SongViewSet(viewsets.ModelViewSet):
@@ -99,7 +129,6 @@ class SongViewSet(viewsets.ModelViewSet):
         song = Song.objects.get(pk=pk)
         song.delete()
         return Response(status=204)
-
 
 
 @api_view(['GET'])
