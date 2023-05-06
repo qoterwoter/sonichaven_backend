@@ -1,9 +1,7 @@
-from django.db import models
 from datetime import timedelta
-from django.db.models import Count
+from django.db import models
 from django.conf import settings
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
+from .utils import get_playcounts
 
 
 class Artist(models.Model):
@@ -12,6 +10,7 @@ class Artist(models.Model):
     name = models.CharField('Имя артиста / группы', max_length=100)
     bio = models.TextField(verbose_name='Описание артиста / группы')
     profile_image = models.CharField(max_length=255, verbose_name='Аватар')
+    payment = models.DecimalField('Выплата', max_digits=10, decimal_places=2, default=0)
 
     class Meta:
         ordering = ['pk']
@@ -20,6 +19,15 @@ class Artist(models.Model):
 
     def __str__(self):
         return self.name
+
+    def update_payment(self):
+        total_playcounts = self.song_set.aggregate(models.Sum('playcounts'))['playcounts__sum'] or 0
+        self.payment = total_playcounts * 0.04
+
+    def save(self, *args, **kwargs):
+        self.update_payment()
+        super().save(*args, **kwargs)
+
 
 
 class Release(models.Model):
@@ -38,6 +46,7 @@ class Release(models.Model):
     image = models.CharField(max_length=255, verbose_name='Обложка')
     release_date = models.DateField('Дата выхода')
     type = models.CharField('Тип релиза', max_length=12, choices=TYPE_CHOICES)
+    listens = models.PositiveIntegerField('Количество прослушиваний', default=0)
 
     class Meta:
         ordering = ['artist']
@@ -47,12 +56,15 @@ class Release(models.Model):
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        self.listens = self.get_total_listens()
+        super().save(*args, **kwargs)
 
-def recalculate_track_numbers(release):
-    songs = release.songs.all().order_by('track_number')
-    for i, song in enumerate(songs):
-        song.track_number = i + 1
-        song.save()
+    def get_total_listens(self):
+        total_listens = 0
+        for song in self.songs.all():
+            total_listens += song.playcounts
+        return total_listens
 
 
 class Song(models.Model):
@@ -62,6 +74,7 @@ class Song(models.Model):
     # audio_file = models.FileField(upload_to='audio_files/')
     duration = models.DurationField('Длительность', default=timedelta(minutes=0))
     track_number = models.PositiveIntegerField('Номер песни в релизе', blank=True, null=True)
+    playcounts = models.PositiveIntegerField('Количество прослушиваний', blank=True, null=True)
 
     class Meta:
         unique_together = ('release', 'track_number')
@@ -79,8 +92,18 @@ class Song(models.Model):
             )['next_track_number'] + 1
             self.track_number = next_track_number
         super().save(*args, **kwargs)
-        recalculate_track_numbers(self.release)
 
-    def delete(self, *args, **kwargs):
-        super().delete(*args, **kwargs)
-        recalculate_track_numbers(self.release)
+        artist_name = self.artist.name
+        track_name = self.title
+        self.playcounts = get_playcounts(artist_name, track_name)
+        super().save(*args, **kwargs)
+
+        if not self.track_number:
+            next_track_number = Song.objects.filter(release=self.release).aggregate(
+                next_track_number=models.Count('id')
+            )['next_track_number'] + 1
+            self.track_number = next_track_number
+        super().save(*args, **kwargs)
+
+        artist = self.artist
+        artist.update_payment()
