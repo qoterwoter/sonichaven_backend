@@ -32,7 +32,7 @@ class SongInline(admin.TabularInline):
 
 
 class ReleaseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'artist', 'release_date', 'listens')
+    list_display = ('id', 'title', 'artist','status', 'release_date', 'listens')
     list_filter = ['artist']
     inlines = [SongInline]
     search_fields = ('title', 'artist__name')
@@ -40,7 +40,7 @@ class ReleaseAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'artist', 'image', 'release_date', 'type')
+            'fields': ('title', 'artist', 'image', 'release_date', 'type', 'status')
         }),
     )
 

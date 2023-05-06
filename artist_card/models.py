@@ -29,8 +29,13 @@ class Artist(models.Model):
         super().save(*args, **kwargs)
 
 
-
 class Release(models.Model):
+    STATUS_CHOICES = [
+        ('released', 'Выпущен на площадки'),
+        ('awaiting_upload', 'Ожидает выгрузки'),
+        ('archived', 'Архивирован'),
+        ('in_progress', 'В работе'),
+    ]
     TYPE_CHOICES = [
         ('album', 'Альбом'),
         ('mixtape', 'Микстейп'),
@@ -38,15 +43,12 @@ class Release(models.Model):
         ('single', 'Сингл'),
     ]
     title = models.CharField('Название', max_length=100)
-    artist = models.ForeignKey(
-        Artist,
-        on_delete=models.CASCADE,
-        verbose_name='Исполнитель',
-    )
+    artist = models.ForeignKey(Artist,on_delete=models.CASCADE,verbose_name='Исполнитель',)
     image = models.CharField(max_length=255, verbose_name='Обложка')
     release_date = models.DateField('Дата выхода')
     type = models.CharField('Тип релиза', max_length=12, choices=TYPE_CHOICES)
     listens = models.PositiveIntegerField('Количество прослушиваний', default=0)
+    status = models.CharField('Статус', max_length=20, choices=STATUS_CHOICES, default='in_progress')
 
     class Meta:
         ordering = ['artist']
@@ -75,6 +77,7 @@ class Song(models.Model):
     duration = models.DurationField('Длительность', default=timedelta(minutes=0))
     track_number = models.PositiveIntegerField('Номер песни в релизе', blank=True, null=True)
     playcounts = models.PositiveIntegerField('Количество прослушиваний', blank=True, null=True)
+    featuring = models.CharField('При участии', max_length=100, blank=True)
 
     class Meta:
         unique_together = ('release', 'track_number')
