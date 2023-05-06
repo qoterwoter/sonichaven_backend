@@ -24,7 +24,7 @@ class ReleaseGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Release
-        fields = ['id', 'title', 'artist', 'image', 'release_date', 'type', 'songs']
+        fields = ['id', 'title', 'artist', 'listens', 'image', 'release_date', 'type', 'songs']
 
 
 class ReleaseCRUDSerializer(serializers.ModelSerializer):
@@ -38,7 +38,7 @@ class ReleaseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Release
-        fields = ["id", 'title', 'artist', 'image', 'release_date', 'type', 'songs']
+        fields = ["id", 'title', 'artist', 'listens', 'image', 'release_date', 'type', 'songs']
 
 
 class ReleasesSerializer(serializers.ModelSerializer):
