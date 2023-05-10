@@ -28,7 +28,17 @@ admin.site.register(Song, SongAdmin)
 class SongInline(admin.TabularInline):
     model = Song
     extra = 1
-    fields = ('track_number', 'title', 'duration', 'artist')
+    fields = ('track_number', 'title', 'duration', 'artist', 'featuring', 'playcounts')
+
+
+def update_listens(self, request, queryset):
+    for release in queryset:
+        total_playcounts = release.songs.aggregate(total_playcounts=Sum('playcounts'))['total_playcounts'] or 0
+        Release.objects.filter(pk=release.pk).update(listens=total_playcounts)
+    self.message_user(request, f'Прослушивания обновлены для {queryset.count()} релизов.')
+
+
+update_listens.short_description = 'Обновить количество прослушиваний'
 
 
 class ReleaseAdmin(admin.ModelAdmin):
@@ -37,6 +47,7 @@ class ReleaseAdmin(admin.ModelAdmin):
     inlines = [SongInline]
     search_fields = ('title', 'artist__name')
     can_delete = True
+    actions = [update_listens]
 
     fieldsets = (
         (None, {
@@ -44,15 +55,7 @@ class ReleaseAdmin(admin.ModelAdmin):
         }),
     )
 
-    actions = ['update_listens']
 
-    def update_listens(self, request, queryset):
-        for release in queryset:
-            total_playcounts = release.songs.aggregate(total_playcounts=Sum('playcounts'))['total_playcounts'] or 0
-            Release.objects.filter(pk=release.pk).update(listens=total_playcounts)
-        self.message_user(request, f'Прослушивания обновлены для {queryset.count()} релизов.')
-
-    update_listens.short_description = 'Обновить количество прослушиваний'
 
 admin.site.register(Release, ReleaseAdmin)
 

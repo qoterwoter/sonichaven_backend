@@ -24,9 +24,9 @@ class Artist(models.Model):
         total_playcounts = self.song_set.aggregate(models.Sum('playcounts'))['playcounts__sum'] or 0
         self.payment = total_playcounts * 0.04
 
-    def save(self, *args, **kwargs):
-        self.update_payment()
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.update_payment()
+    #     super().save(*args, **kwargs)
 
 
 class Release(models.Model):
@@ -65,7 +65,7 @@ class Release(models.Model):
     def get_total_listens(self):
         total_listens = 0
         for song in self.songs.all():
-            total_listens += song.playcounts
+            total_listens += song.playcounts or 0
         return total_listens
 
 
@@ -99,13 +99,6 @@ class Song(models.Model):
         artist_name = self.artist.name
         track_name = self.title
         self.playcounts = get_playcounts(artist_name, track_name)
-        super().save(*args, **kwargs)
-
-        if not self.track_number:
-            next_track_number = Song.objects.filter(release=self.release).aggregate(
-                next_track_number=models.Count('id')
-            )['next_track_number'] + 1
-            self.track_number = next_track_number
         super().save(*args, **kwargs)
 
         artist = self.artist

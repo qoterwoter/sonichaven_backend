@@ -2,6 +2,11 @@
 
 from django.db import migrations
 import sonichaven.models
+from django.contrib.auth.models import Group
+
+
+def create_artist_group(apps, schema_editor):
+    artist_group = Group.objects.create(name='Artist')
 
 
 class Migration(migrations.Migration):
@@ -17,4 +22,5 @@ class Migration(migrations.Migration):
                 ('objects', sonichaven.models.UserManager()),
             ],
         ),
+        migrations.RunPython(create_artist_group),
     ]

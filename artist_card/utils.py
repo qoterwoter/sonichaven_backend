@@ -6,5 +6,8 @@ def get_playcounts(artist_name, track_name):
     url = f'http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key={api_key}&artist={artist_name}&track={track_name}&format=json'
     response = requests.get(url)
     data = json.loads(response.text)
-    playcounts = data['track']['playcount']
+    if 'track' in data:
+        playcounts = data['track']['playcount']
+    else:
+        playcounts = 0  # or any other default value
     return playcounts

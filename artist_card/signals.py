@@ -1,18 +1,23 @@
+from django.contrib.auth.models import Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.contrib.auth import get_user_model
 from .models import Artist
-from sonichaven.models import User
-from django.contrib.auth.models import Group
+
+User = get_user_model()
 
 
 @receiver(post_save, sender=User)
-def create_artist(sender, instance, created, **kwargs):
+def create_artist_profile(sender, instance, created, **kwargs):
     if created and instance.is_artist:
-        Artist.objects.create(user=instance, name=instance.username)
+        artist = Artist(user=instance)
+        artist.save()
+        instance.artist = artist
+        instance.save()
 
 
-@receiver(post_save, sender=User)
-def add_user_to_artist_group(sender, instance, created, **kwargs):
-    if created and instance.is_artist:
-        artist_group, _ = Group.objects.get_or_create(name='Artist')
-        instance.groups.add(artist_group)
+# @receiver(post_save, sender=User)
+# def assign_user_to_artist_group(sender, instance, created, **kwargs):
+#     if created and instance.is_artist:
+#         artist_group = Group.objects.get(name='Artist')
+#         instance.groups.add(artist_group)
