@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-vc4u68-3da9onlztg(jd0q!u2&dhy)eamir5%s)eh&%$9+^hb1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','http://sonichaven-backend.std-962.ist.mospolytech.ru/', 'sonichaven-backend.std-962.ist.mospolytech.ru', '127.0.0.1', 'https://qoter.pythonanywhere.com/', 'qoter.pythonanywhere.com']
+ALLOWED_HOSTS = ['localhost','http://sonichaven-backend.std-962.ist.mospolytech.ru/', 'sonichaven-backend.std-962.ist.mospolytech.ru', '127.0.0.1', 'qoter.pythonanywhere.com']
 
 AUTH_USER_MODEL = 'sonichaven.User'
 
@@ -68,7 +68,7 @@ MIDDLEWARE = [
 
 # CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000',] #  'http://sonichaven.std-962.ist.mospolytech.ru',
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://sonichaven.std-962.ist.mospolytech.ru/'] #  'http://sonichaven.std-962.ist.mospolytech.ru',
 
 CORS_ALLOW_METHODS = [
     "DELETE",
