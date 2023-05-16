@@ -13,7 +13,7 @@ urlpatterns = [
     path('sound_designers/', SoundDesignerAPIView.as_view(), name='sound_designers'),
     path('arrangements/', ArrangementAPIView.as_view(), name='arrangements'),
 
-    path('carts/', ShopCartListCreateView.as_view(), name='shopcart-list-create'),
+    path('carts/<int:artist_id>/', ShopCartListCreateView.as_view(), name='shopcart-list-create'),
     path('', include(router.urls)),
     path('cart_order_list/', cart_order_list, name='make_order'),
 ]

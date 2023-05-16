@@ -53,15 +53,19 @@ class ArrangementAPIView(generics.ListCreateAPIView):
 class ShopCartListCreateView(generics.ListCreateAPIView):
     queryset = ShopCart.objects.all()
     serializer_class = ShopCartSerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(artist=self.request.user.artist)
 
     def get_queryset(self):
-        artist = Artist.objects.filter(user=self.request.user).first()
-        return ShopCart.objects.filter(artist=artist)
+        artist_id = self.kwargs['artist_id']
+        return ShopCart.objects.filter(artist_id=artist_id)
+
+    # def get_queryset(self):
+    #     artist = Artist.objects.filter(user=self.request.user).first()
+    #     return ShopCart.objects.filter(artist=artist)
 
     def options(self, request, *args, **kwargs):
         response = super().options(request, *args, **kwargs)
