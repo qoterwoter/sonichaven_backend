@@ -10,7 +10,7 @@ User = get_user_model()
 @receiver(post_save, sender=User)
 def create_artist_profile(sender, instance, created, **kwargs):
     if created and instance.is_artist:
-        artist = Artist(user=instance)
+        artist = Artist(user=instance, name=instance.username)
         artist.save()
 
 
