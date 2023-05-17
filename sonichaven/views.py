@@ -18,8 +18,15 @@ class RegistrationView(APIView):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
+            artist = get_object_or_404(Artist, user=user)
+            artist_data = ArtistSerializer(artist).data
+            user_data = UserSerializer(user).data
+            user_data['artist'] = artist_data
+
+            cart = ShopCart.objects.filter(artist=artist).first()
+            user_data['cart_id'] = cart.id if cart else None
             token, created = Token.objects.get_or_create(user=user)
-            return Response({'user_id': user.id, 'token': token.key})
+            return Response(user_data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

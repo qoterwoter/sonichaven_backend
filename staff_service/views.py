@@ -104,6 +104,7 @@ class CartItemViewSet(viewsets.ModelViewSet):
         # Call calculate_cart_sum on the cart instance after the delete
         cart.calculate_cart_sum()
 
+
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def cart_order_list(request):
