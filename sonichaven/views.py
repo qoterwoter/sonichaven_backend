@@ -26,6 +26,7 @@ class RegistrationView(APIView):
             cart = ShopCart.objects.filter(artist=artist).first()
             user_data['cart_id'] = cart.id if cart else None
             token, created = Token.objects.get_or_create(user=user)
+            user_data.token = token
             return Response(user_data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
