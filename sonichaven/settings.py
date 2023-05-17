@@ -66,9 +66,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://sonichaven.std-962.ist.mospolytech.ru/'] #  'http://sonichaven.std-962.ist.mospolytech.ru',
+# CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://sonichaven.std-962.ist.mospolytech.ru/'] #  'http://sonichaven.std-962.ist.mospolytech.ru',
 
 CORS_ALLOW_METHODS = [
     "DELETE",
