@@ -3,6 +3,8 @@ from django.urls import path
 from django.urls import include 
 from .views import RegistrationView, LoginView, UserViewSet
 from rest_framework import routers
+from django.conf.urls.static import static
+from django.conf import settings
 
 # create router and register viewset
 router = routers.DefaultRouter()
@@ -17,3 +19,6 @@ urlpatterns = [
     path('api/login/', LoginView.as_view()),
     path('api/', include(router.urls)),
 ]
+
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+

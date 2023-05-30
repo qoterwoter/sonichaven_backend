@@ -11,6 +11,7 @@ from rest_framework import viewsets, permissions
 from .models import User
 from .serializers import UserSerializer
 from django.contrib.auth.hashers import make_password
+from rest_framework.generics import CreateAPIView
 
 
 class RegistrationView(APIView):
@@ -67,16 +68,16 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_update(self, serializer):
-        # check if username or password is being updated
+        if 'profile_image' in serializer.validated_data:
+            serializer.instance.profile_image = serializer.validated_data['profile_image']
         if 'username' in serializer.validated_data:
-            # set new username
             serializer.instance.username = serializer.validated_data['username']
         if 'password' in serializer.validated_data:
-            # set new password (hashed)
             serializer.instance.password = make_password(serializer.validated_data['password'])
-        # save changes
         serializer.save()
-
+        updated_user = serializer.instance
+        updated_user_data = UserSerializer(updated_user).data
+        return Response(updated_user_data, status=status.HTTP_200_OK)
     def perform_destroy(self, instance):
         instance.delete()
 
@@ -85,4 +86,3 @@ class UserViewSet(viewsets.ModelViewSet):
         if request.user.id != int(kwargs['pk']):
             return Response({'error': 'Not authorized to update this user.'}, status=status.HTTP_401_UNAUTHORIZED)
         return super().update(request, *args, **kwargs)
-

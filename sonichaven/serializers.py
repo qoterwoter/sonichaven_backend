@@ -7,10 +7,13 @@ User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     artist = ArtistSerializer(read_only=True)
+    profile_image = serializers.ImageField(max_length=None, use_url=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'is_soundengineer', 'is_artist', 'artist', 'password']
+        fields = ['id', 'username', 'email', 'phone_number', 'profile_image', 'first_name', 'last_name',
+                  'is_soundengineer', 'is_artist', 'artist', 'password']
+        extra_kwargs = {'username': {'required': False}, 'password': {'required': False}, 'profile_image': {'required': False}}
 
     def create(self, validated_data):
         user = User.objects.create_user(
