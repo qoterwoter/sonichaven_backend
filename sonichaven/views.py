@@ -33,6 +33,7 @@ class RegistrationView(APIView):
 
 
 class LoginView(APIView):
+
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
@@ -51,7 +52,7 @@ class LoginView(APIView):
         artist_data = ArtistSerializer(artist).data
 
         # Serialize and return user data with related artist info
-        user_data = UserSerializer(user).data
+        user_data = UserSerializer(user, context={"request": request}).data
         user_data['artist'] = artist_data
         user_data['token'] = token.key
 
@@ -78,6 +79,7 @@ class UserViewSet(viewsets.ModelViewSet):
         updated_user = serializer.instance
         updated_user_data = UserSerializer(updated_user).data
         return Response(updated_user_data, status=status.HTTP_200_OK)
+
     def perform_destroy(self, instance):
         instance.delete()
 
