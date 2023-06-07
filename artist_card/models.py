@@ -57,14 +57,25 @@ class Release(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-        self.listens = self.get_total_listens()
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.update_playcounts()
+    #     super().save(*args, **kwargs)
+
+    def update_playcounts(self):
+        for song in self.songs.all():
+            artist_name = song.artist.name
+            track_name = song.title
+            song.playcounts = get_playcounts(artist_name, track_name)
+            song.save()
 
     def get_total_listens(self):
+        if not self.pk:
+            self.save()
         total_listens = 0
         for song in self.songs.all():
             total_listens += song.playcounts or 0
+        self.listens = total_listens
+        self.save()
         return total_listens
 
 
@@ -86,6 +97,9 @@ class Song(models.Model):
 
     def __str__(self):
         return self.title
+
+    def update_playcounts(self):
+        self.save()
 
     def save(self, *args, **kwargs):
         if not self.track_number:

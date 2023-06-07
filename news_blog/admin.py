@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.forms import ClearableFileInput
 from django.db import models
+from import_export.admin import ImportExportModelAdmin
 
 from .models import News, NewsArticle
 
@@ -14,8 +15,10 @@ class NewsArticleInline(admin.TabularInline):
     }
 
 @admin.register(News)
-class NewsAdmin(admin.ModelAdmin):
+class NewsAdmin(ImportExportModelAdmin):
     list_display = ('id','title', 'created_at', 'updated_at', 'author', 'display_articles')
+    list_filter = ('author',)
+    search_fields = ('title',)
     inlines = [NewsArticleInline]
 
     def display_articles(self, obj):

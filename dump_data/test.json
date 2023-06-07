@@ -1,0 +1,196 @@
+[
+  {
+    "model": "artist_card.release",
+    "pk": 19,
+    "fields": {
+      "title": "Origins (Deluxe)",
+      "artist": 1,
+      "image": "https://example.com/origins_deluxe.jpg",
+      "release_date": "2023-05-01",
+      "type": "album",
+      "listens": 0,
+      "status": "released"
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 203,
+    "fields": {
+      "title": "Natural",
+      "artist": 1,
+      "release": 19,
+      "duration": "00:03:10",
+      "track_number": 1,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 204,
+    "fields": {
+      "title": "Boomerang",
+      "artist": 1,
+      "release": 19,
+      "duration": "00:03:07",
+      "track_number": 2,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+ "model": "artist_card.song",
+    "pk": 205,
+    "fields": {
+      "title": "Machine",
+      "artist": 1,
+      "release": 19,
+      "duration": "00:03:01",
+      "track_number": 3,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 206,
+    "fields": {
+      "title": "Cool Out",
+      "artist": 1,
+      "release": 19,
+      "duration": "00:03:37",
+      "track_number": 4,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 207,
+    "fields": {
+      "title": "Bad Liar",
+      "artist": 1,
+      "release": 19,
+      "duration": "00:04:20",
+      "track_number": 5,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 208,
+    "fields": {
+      "title": "West Coast",
+      "artist": 1,
+      "release": 19,
+      "duration": "00:03:37",
+      "track_number": 6,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 209,
+    "fields": {
+      "title": "Zero",
+      "artist": 1,
+      "release": 19,
+      "duration": "00:03:30",
+      "track_number": 7,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 210,
+    "fields": {
+      "title": "Bullet In A Gun",
+      "artist": 1,
+      "release": 19,
+      "duration": "00:03:24",
+      "track_number": 8,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 211,
+    "fields": {
+      "title": "Digital",
+      "artist": 1,
+      "release": 19,
+      "duration": "00:03:21",
+      "track_number": 9,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  }, {
+   "model": "artist_card.song",
+    "pk": 212,
+    "fields": {
+      "title": "Only",
+      "artist": 1,
+      "release": 19,
+      "duration": "00:03:00",
+      "track_number": 10,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 213,
+    "fields": {
+      "title": "Stuck",
+      "artist": 1,
+      "release": 19,
+      "duration": "00:03:10",
+      "track_number": 11,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 214,
+    "fields": {
+      "title": "Love",
+      "artist": 1,
+      "release": 19,
+      "duration": "00:02:46",
+      "track_number": 12,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 215,
+    "fields": {
+      "title": "Birds",
+      "artist": 1,
+      "release": 19,
+      "duration": "00:03:39",
+      "track_number": 13,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 216,
+    "fields": {
+      "title": "Burn Out",
+      "artist": 1,
+      "release": 19,
+      "duration": "00:04:33",
+      "track_number": 14,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  }
+]

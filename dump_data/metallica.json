@@ -1,0 +1,145 @@
+[
+  {
+    "model": "artist_card.song",
+    "pk": 58,
+    "fields": {
+      "title": "Sad but True",
+      "artist": 1,
+      "release": 6,
+      "duration": "00:05:24",
+      "track_number": 2,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+ "model": "artist_card.song",
+    "pk": 59,
+    "fields": {
+      "title": "Holier Than Thou",
+      "artist": 1,
+      "release": 6,
+      "duration": "00:03:47",
+      "track_number": 3,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 60,
+    "fields": {
+      "title": "The Unforgiven",
+      "artist": 1,
+      "release": 6,
+      "duration": "00:06:27",
+      "track_number": 4,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 61,
+    "fields": {
+      "title": "Wherever I May Roam",
+      "artist": 1,
+      "release": 6,
+      "duration": "00:06:44",
+      "track_number": 5,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 62,
+    "fields": {
+      "title": "Don't Tread on Me",
+      "artist": 1,
+      "release": 6,
+      "duration": "00:03:59",
+      "track_number": 6,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 63,
+    "fields": {
+      "title": "Through the Never",
+      "artist": 1,
+      "release": 6,
+      "duration": "00:04:04",
+      "track_number": 7,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+   {
+    "model": "artist_card.song",
+    "pk": 64,
+    "fields": {
+      "title": "Nothing Else Matters",
+      "artist": 1,
+      "release": 6,
+      "duration": "00:06:28",
+      "track_number": 8,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 65,
+    "fields": {
+      "title": "Of Wolf and Man",
+      "artist": 1,
+      "release": 6,
+      "duration": "00:04:16",
+      "track_number": 9,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 66,
+    "fields": {
+      "title": "The God That Failed",
+      "artist": 1,
+      "release": 6,
+      "duration": "00:05:05",
+      "track_number": 10,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+ "model": "artist_card.song",
+    "pk": 67,
+    "fields": {
+      "title": "My Friend of Misery",
+      "artist": 1,
+      "release": 6,
+      "duration": "00:06:49",
+      "track_number": 11,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  },
+  {
+    "model": "artist_card.song",
+    "pk": 68,
+    "fields": {
+      "title": "The Struggle Within",
+      "artist": 1,
+      "release": 6,
+      "duration": "00:03:54",
+      "track_number": 12,
+      "playcounts": 0,
+      "featuring": ""
+    }
+  }
+]

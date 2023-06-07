@@ -4,6 +4,7 @@ from .models import Song
 from .utils import get_playcounts
 import locale
 from django.db.models import F, Sum
+from import_export.admin import ImportExportModelAdmin
 
 
 def update_playcounts(modeladmin, request, queryset):
@@ -17,8 +18,10 @@ def update_playcounts(modeladmin, request, queryset):
 update_playcounts.short_description = ('Обновить количество прослушиваний')
 
 
-class SongAdmin(admin.ModelAdmin):
-    list_display = ('title', 'artist', 'release', 'duration', 'track_number', 'playcounts')
+class SongAdmin(ImportExportModelAdmin):
+    list_display = ('title', 'artist', 'release', 'duration', 'track_number', 'playcounts', 'pk')
+    list_filter = ('release',)
+    search_fields = ('title', 'artist__name', 'artist__bio', 'release__title', 'release__type', 'playcounts')
     actions = [update_playcounts]
 
 
@@ -33,17 +36,18 @@ class SongInline(admin.TabularInline):
 
 def update_listens(self, request, queryset):
     for release in queryset:
-        total_playcounts = release.songs.aggregate(total_playcounts=Sum('playcounts'))['total_playcounts'] or 0
-        Release.objects.filter(pk=release.pk).update(listens=total_playcounts)
-    self.message_user(request, f'Прослушивания обновлены для {queryset.count()} релизов.')
+        for song in release.songs.all():
+            song.save()
+        release.get_total_listens()
+        release.save()
 
 
 update_listens.short_description = 'Обновить количество прослушиваний'
 
 
-class ReleaseAdmin(admin.ModelAdmin):
+class ReleaseAdmin(ImportExportModelAdmin):
     list_display = ('id', 'title', 'artist','status', 'release_date', 'listens')
-    list_filter = ['artist']
+    list_filter = ['artist', 'status']
     inlines = [SongInline]
     search_fields = ('title', 'artist__name')
     can_delete = True
@@ -56,11 +60,10 @@ class ReleaseAdmin(admin.ModelAdmin):
     )
 
 
-
 admin.site.register(Release, ReleaseAdmin)
 
 
-class ArtistAdmin(admin.ModelAdmin):
+class ArtistAdmin(ImportExportModelAdmin):
     list_display = ('id', 'name', 'display_payment', 'bio', 'user')
     search_fields = ('name', 'bio')
     readonly_fields = ('payment',)
@@ -78,6 +81,7 @@ class ArtistAdmin(admin.ModelAdmin):
             artist.save()
         self.message_user(request, ('Выплаты были пересчитаны изсходя из прослушиваний артистов.'))
     recalculate_payment.short_description = ('Пересчитать выплаты для выбранных артистов')
+
 
 admin.short_description = ('Пересчитать выплаты для выбранных артистов')
 

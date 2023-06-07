@@ -18,7 +18,7 @@ class ManagerAdminForm(forms.ModelForm):
 
 
 @admin.register(Manager)
-class ManagerAdmin(admin.ModelAdmin):
+class ManagerAdmin(ImportExportModelAdmin):
     form = ManagerAdminForm
     list_display = ('user', 'enjoy_date', 'display_payment')
     search_fields = ['user', 'payment']
@@ -30,7 +30,7 @@ class ManagerAdmin(admin.ModelAdmin):
 
 
 @admin.register(Arrangement)
-class ArrangementAdmin(admin.ModelAdmin):
+class ArrangementAdmin(ImportExportModelAdmin):
     list_display = ('genre', 'duration', 'cost', 'format', 'author')
     list_filter = ('genre', 'format', 'author')
 
@@ -76,6 +76,8 @@ class CartItemInline(admin.TabularInline):
 @admin.register(ShopCart)
 class ShopCartAdmin(ImportExportModelAdmin):
     list_display = ('id', 'artist', 'display_sum', 'display_services')
+    list_filter = ('artist',)
+    search_fields = ('artist__name', 'sum')
     inlines = [CartItemInline]
     readonly_fields = ('sum',)
 
@@ -98,8 +100,10 @@ class ShopCartAdmin(ImportExportModelAdmin):
 
 
 @admin.register(CartItem)
-class CartItemAdmin(admin.ModelAdmin):
+class CartItemAdmin(ImportExportModelAdmin):
     list_display = ('service', 'pk', 'quantity', 'cart')
+    search_fields = ('service__name', 'service__description', 'quantity')
+    list_filter = ('cart', 'service')
 
 
 @admin.register(Genre)
@@ -109,7 +113,7 @@ class GenreAdmin(ImportExportModelAdmin):
     ordering = ('pk',)
 
 
-class ContractAdmin(admin.ModelAdmin):
+class ContractAdmin(ImportExportModelAdmin):
     list_display = ('artist', 'signing_date', 'duration', 'contract_terms',)
     search_fields = ('artist__name',)
     list_filter = ('signing_date',)
@@ -124,7 +128,7 @@ class OrderItemInline(admin.TabularInline):
     extra = 1
 
 
-class OrderAdmin(admin.ModelAdmin):
+class OrderAdmin(ImportExportModelAdmin):
     list_display = ('id', 'get_artist_name', 'sum', 'created_at')
 
     def get_artist_name(self, obj):
@@ -143,11 +147,14 @@ class OrderAdmin(admin.ModelAdmin):
         obj.sum = sum(item.service.cost * item.quantity for item in obj.items.all())
         obj.save()
 
+
 admin.site.register(Order, OrderAdmin)
 
 
-class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ('id', 'service')
+class OrderItemAdmin(ImportExportModelAdmin):
+    list_display = ('service', 'pk', 'quantity', 'order')
+    search_fields = ('service__name', 'service__description', 'quantity')
+    list_filter = ('order', 'service')
 
 
 admin.site.register(OrderItem, OrderItemAdmin)
