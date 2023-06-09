@@ -19,7 +19,7 @@ update_playcounts.short_description = ('Обновить количество п
 
 
 class SongAdmin(ImportExportModelAdmin):
-    list_display = ('title', 'artist', 'release', 'duration', 'track_number', 'playcounts', 'pk')
+    list_display = ('title', 'artist', 'release', 'duration', 'track_number', 'playcounts', 'id')
     list_filter = ('release',)
     search_fields = ('title', 'artist__name', 'artist__bio', 'release__title', 'release__type', 'playcounts')
     actions = [update_playcounts]

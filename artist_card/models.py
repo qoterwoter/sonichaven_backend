@@ -91,7 +91,7 @@ class Song(models.Model):
 
     class Meta:
         unique_together = ('release', 'track_number')
-        ordering = ['release', 'track_number']
+        ordering = ['id', 'track_number']
         verbose_name = 'Песня'
         verbose_name_plural = 'Песни'
 
